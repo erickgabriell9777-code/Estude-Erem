@@ -7,6 +7,11 @@
   "workers_dev": true,
   "preview_urls": false,
   "keep_vars": true,
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "https://erickgabriell9777.cloudflareaccess.com",
+    "ACCESS_AUD": "6f79bd9a3eed620235d21c481554468e58dae4a1fb17740d3aef55c620bd9e0b",
+    "EREM_ALLOWED_EMAILS": "erickgabriell9777@gmail.com"
+  },
   "assets": {
     "binding": "ASSETS",
     "run_worker_first": true

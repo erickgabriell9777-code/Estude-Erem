@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.2.2",
+    "date": "2026-10-18",
+    "categories": {
+      "Correções": [
+        "Entrada privada com configuração sincronizada, recuperação de sessão e mensagens que identificam falhas de acesso."
+      ]
+    }
+  },
+  {
     "version": "1.2.1",
     "date": "2026-10-18",
     "categories": {

@@ -29,7 +29,13 @@ O `wrangler.jsonc` fornece nome, entrada, compatibilidade e binding D1. O Vite g
 | `ACCESS_AUD` | AUD exato da aplicação Access |
 | `EREM_ALLOWED_EMAILS` | E-mails completos autorizados, separados por vírgula |
 
-O proprietário deve também estar permitido na política do Access. O servidor confere as duas condições. Variáveis do painel são preservadas em novos deploys por `keep_vars`.
+O proprietário deve também estar permitido na política do Access. O servidor confere as duas condições.
+
+Na versão 1.2.2, os três valores confirmados pelo proprietário nos prints de 18/10/2026 estão definidos em `vars` no `wrangler.jsonc`. O deploy passa a aplicar essa configuração ao runtime. Alterações futuras nesses três valores devem ser feitas nesse arquivo para não serem substituídas na próxima publicação. As demais variáveis do painel continuam preservadas por `keep_vars`. Esses identificadores de Access não são senhas nem tokens de API; nunca adicionar segredos ao arquivo.
+
+O domínio aceita o hostname da equipe, sua URL HTTPS ou o endereço JWKS completo e normaliza para o emissor HTTPS. Não há inferência de domínio de e-mail: a lista de e-mails continua exigindo endereços completos e exatos.
+
+O token pode chegar pelo cabeçalho `cf-access-jwt-assertion` ou, na ausência dele, pelo cookie `CF_Authorization`. Ambos exigem assinatura, emissor, audiência, validade e e-mail autorizado. A tela de entrada mostra um código de diagnóstico e a versão, com opção de renovar a sessão; não exibe valores de configuração, e-mails ou tokens. Uma falha de configuração, sessão expirada e conta não autorizada têm mensagens distintas.
 
 ## Conferência após publicar
 

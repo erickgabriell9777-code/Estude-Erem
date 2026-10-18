@@ -1,6 +1,8 @@
 import handler from "vinext/server/fetch-handler";
 import { AccessError, authenticateAccess } from "./lib/access-auth";
 import { withRequestUser } from "./lib/request-user";
+import { createAccessResponse } from "./lib/access-response";
+import { appVersion } from "./lib/app-version";
 
 export default {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext): Promise<Response> {
@@ -8,17 +10,7 @@ export default {
     try {
       user = await authenticateAccess(request.headers, env);
     } catch (error) {
-      const status = error instanceof AccessError ? error.status : 503;
-      const message = status === 503
-        ? "O acesso privado ainda está sendo configurado."
-        : "Entre com uma conta autorizada para acessar o Estude Erem.";
-      const headers = { "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff", "X-Robots-Tag": "noindex, nofollow" };
-      if (new URL(request.url).pathname.startsWith("/api/")) {
-        return Response.json({ error: message }, { status, headers });
-      }
-      return new Response(`<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Estude Erem · Acesso privado</title><style>body{font:17px/1.6 system-ui;background:#f7f6fc;color:#25213b;margin:0;padding:24px;display:grid;min-height:80dvh;place-items:center}main{max-width:30rem}h1{font-size:28px}a{color:#5b40c4}</style><main><h1>Estude Erem</h1><p>${message}</p><p>Esta versão está fechada para testes.</p></main></html>`, {
-        status, headers: { ...headers, "Content-Type": "text/html; charset=utf-8" },
-      });
+      return createAccessResponse(request, error instanceof AccessError ? error : new AccessError(503), appVersion);
     }
 
     // Access protects static assets too, including document resources. Keep

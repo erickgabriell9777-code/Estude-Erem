@@ -1,6 +1,6 @@
 # Estude Erem — Web e Android
 
-Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.1 prepara a implantação Web independente na Cloudflare, protegida por Cloudflare Access e lista de e-mails autorizados no servidor.
+Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.2 corrige a configuração da entrada na Cloudflare, protegida por Cloudflare Access e lista de e-mails autorizados no servidor, com recuperação de sessão e diagnóstico de falhas.
 
 ## Executar e publicar
 
@@ -27,8 +27,8 @@ Sem configuração de acesso, o Worker bloqueia o app e suas APIs. Não existe l
 ## Ainda pendente na conta do proprietário
 
 - Validar a publicação real e a política de acesso privada.
-- Configurar as variáveis do Access e os secrets do serviço de livros.
+- Confirmar a aplicação das variáveis de Access do projeto e configurar os secrets do serviço de livros.
 - Transferir e conferir progresso e arquivos do site original, com backup e associação das contas.
 - Gerar e distribuir o aplicativo Android para testes privados.
 
-O site original permanece preservado. Não há dados pessoais, PDFs enviados ou credenciais de runtime neste repositório. O banco novo não importa automaticamente o progresso antigo.
+O site original permanece preservado. O repositório inclui o e-mail autorizado e os identificadores de configuração do Access; não contém progresso pessoal, PDFs enviados, senhas nem tokens secretos. O banco novo não importa automaticamente o progresso antigo.

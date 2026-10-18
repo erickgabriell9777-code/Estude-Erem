@@ -9,11 +9,18 @@
 - Sem configuração, login ou autorização válidos: app, APIs e assets bloqueados.
 - Script de deploy com provisionamento D1 e aplicação das migrações.
 - Testes de token inválido, claims incorretos, conta fora da lista e concorrência entre usuários.
+- Configuração de runtime do beta incluída no projeto com os valores confirmados pelo proprietário; correção do domínio sem HTTPS e do e-mail incompleto vistos nos prints.
+- Recuperação de sessão por botão, validação de JWT também pelo cookie de Access e diagnósticos específicos sem expor valores privados.
+
+## Observado na conta do proprietário
+
+- O print de 17/10 mostra um build concluído com sucesso, e o Access aparece aplicado a All traffic.
+- Os prints de 18/10 mostram as três variáveis de runtime e os problemas de formato; a entrada no app ainda não foi confirmada após a correção.
 
 ## Ainda não confirmado em produção
 
-- Resultado do deploy real e configuração correta do Access na conta Cloudflare.
-- Valores de runtime e secrets do serviço de livros.
+- Aplicação da atualização 1.2.2 pelo build da Cloudflare e login autorizado.
+- Secrets do serviço de livros.
 - Migração dos dados pessoais e arquivos do Sites.
 - Login e salvamento no celular após publicação.
 - Build e distribuição privada Android.
