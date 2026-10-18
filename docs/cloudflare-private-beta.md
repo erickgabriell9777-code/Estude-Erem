@@ -39,13 +39,17 @@ O token pode chegar pelo cabeçalho `cf-access-jwt-assertion` ou, na ausência d
 
 ## Conferência após publicar
 
+- Antes de publicar, executar `pnpm run build && pnpm run test:runtime`. O teste usa Miniflare com arquivos reais e sessões assinadas de uma equipe fictícia local, sem tocar no D1 remoto.
 - Sem sessão, a página e `/api/study` devem pedir autenticação ou bloquear.
 - Uma conta fora da lista deve ser bloqueada.
 - A conta permitida deve abrir o app, responder e salvar uma questão.
 - Recarregar a página e confirmar o salvamento antes de convidar outra pessoa.
+- Conferir que CSS e JavaScript em `/_next/static/` retornam 200 com os tipos corretos após o login, e que o menu e as matérias respondem ao toque.
 - Conferir separadamente os PDFs, pois o serviço de livros exige `BOOKS_ENDPOINT` e o secret `BOOKS_SERVER_KEY`.
 
 O próprio Worker protege também os arquivos estáticos (`run_worker_first: true`). Não remover essa opção. A verificação usa JWT porque Workers com Static Assets não recebem `ctx.access` em todas as configurações.
+
+Após verificar a sessão, `worker.ts` encaminha `/_next/static/` para `env.ASSETS.fetch`. O vinext deixa esses arquivos compilados para o roteador de assets; passar a requisição diretamente ao handler do framework retorna 404 nessa configuração. As demais rotas continuam no vinext. Todas as respostas mantêm `Cache-Control: private, no-store` e a versão em `X-Erem-Version`. Não liberar arquivos antes da autenticação para resolver falhas de estilos.
 
 ## Limites desta migração
 
@@ -57,3 +61,5 @@ O banco novo começa sem o progresso pessoal do Sites. A transferência exige ba
 - https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/
 - https://developers.cloudflare.com/workers/wrangler/configuration/#automatic-provisioning
 - https://developers.cloudflare.com/d1/reference/migrations/
+- https://developers.cloudflare.com/workers/static-assets/routing/worker-script/
+- https://vinext.dev/docs/deploying/cloudflare#middleware-and-static-files

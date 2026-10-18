@@ -11,18 +11,26 @@
 - Testes de token inválido, claims incorretos, conta fora da lista e concorrência entre usuários.
 - Configuração de runtime do beta incluída no projeto com os valores confirmados pelo proprietário; correção do domínio sem HTTPS e do e-mail incompleto vistos nos prints.
 - Recuperação de sessão por botão, validação de JWT também pelo cookie de Access e diagnósticos específicos sem expor valores privados.
+- Versão 1.2.3: encaminhamento explícito dos arquivos compilados CSS/JS para ASSETS após autenticar. Corrige os 404 em `/_next/static/` que deixavam o HTML sem estilos nem interação.
+- Teste de integração do Worker compilado com assets reais, D1 temporário, catálogo, gravação de perfil e isolamento entre contas.
 
 ## Observado na conta do proprietário
 
 - O print de 17/10 mostra um build concluído com sucesso, e o Access aparece aplicado a All traffic.
-- Os prints de 18/10 mostram as três variáveis de runtime e os problemas de formato; a entrada no app ainda não foi confirmada após a correção.
+- O print de 18/10 às 16:24 mostra o HTML do app no domínio Workers, sem estilo e sem o conteúdo carregado pelo JavaScript. A falha foi reproduzida localmente: HTML 200, CSS compilado 404.
+
+## Validado localmente na versão 1.2.3
+
+- Build de produção, TypeScript e testes de autenticação.
+- Worker compilado: CSS/JS completos com bytes e Content-Type corretos; página, catálogo e APIs acessíveis somente com sessão autorizada.
+- Testes não substituem a conferência no domínio publicado. A tentativa de iniciar um navegador local foi bloqueada pela indisponibilidade do download do navegador; não houve validação visual nesta etapa.
 
 ## Ainda não confirmado em produção
 
-- Aplicação da atualização 1.2.2 pelo build da Cloudflare e login autorizado.
+- Aplicação da atualização 1.2.3 pelo build da Cloudflare e tela completa no celular.
 - Secrets do serviço de livros.
 - Migração dos dados pessoais e arquivos do Sites.
 - Login e salvamento no celular após publicação.
 - Build e distribuição privada Android.
 
-Veja `docs/cloudflare-private-beta.md` para os passos de configuração. O build com erro mostrado pelo usuário não continha as linhas finais do log; a causa exata daquele build ainda depende do log.
+Veja `docs/cloudflare-private-beta.md` para os passos de configuração. O registro Failed antigo mostrado na lista de deploys não identifica a causa da falha visual atual.

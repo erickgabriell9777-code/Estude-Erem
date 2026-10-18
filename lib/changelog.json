@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.2.3",
+    "date": "2026-10-18",
+    "categories": {
+      "Correções": [
+        "Carregamento dos estilos e das funções do aplicativo na hospedagem Cloudflare após entrar na conta."
+      ]
+    }
+  },
+  {
     "version": "1.2.2",
     "date": "2026-10-18",
     "categories": {

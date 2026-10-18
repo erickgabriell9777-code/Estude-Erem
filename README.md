@@ -1,6 +1,6 @@
 # Estude Erem — Web e Android
 
-Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.2 corrige a configuração da entrada na Cloudflare, protegida por Cloudflare Access e lista de e-mails autorizados no servidor, com recuperação de sessão e diagnóstico de falhas.
+Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.3 corrige a entrega dos estilos e scripts na Cloudflare após o login. Cloudflare Access e a lista de e-mails autorizados continuam protegendo páginas, APIs e arquivos.
 
 ## Executar e publicar
 
@@ -10,10 +10,13 @@ Use a versão de Node indicada em `package.json` e pnpm 11.25.0.
 pnpm install --frozen-lockfile
 pnpm run test:access
 pnpm run build
+pnpm run test:runtime
 pnpm run deploy
 ```
 
 A instalação e o build geram os arquivos PDF.js a partir da dependência bloqueada. O deploy usa o Worker compilado e aplica as migrações do D1. Veja [o guia de configuração da versão fechada](docs/cloudflare-private-beta.md), incluindo os campos da Cloudflare e as variáveis de acesso obrigatórias.
+
+O teste de runtime usa o Worker compilado, os arquivos reais do build e um D1 local temporário. Confere o HTML, todos os CSS/JS gerados, os tipos de conteúdo, os bloqueios de acesso, o catálogo e o salvamento de estado. Não usa credenciais nem dados de produção.
 
 Sem configuração de acesso, o Worker bloqueia o app e suas APIs. Não existe login anônimo, mock de produção ou confiança nos cabeçalhos do ChatGPT. O nome antigo `chatgpt-auth.ts` é somente uma ponte de compatibilidade para as rotas existentes.
 

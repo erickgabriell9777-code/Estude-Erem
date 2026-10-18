@@ -20,11 +20,19 @@ export default {
       for (const key of [...cleanHeaders.keys()]) {
         if (key.startsWith("oai-authenticated-user-") || key.startsWith("x-erem-user-")) cleanHeaders.delete(key);
       }
-      const response = await handler.fetch(new Request(request, { headers: cleanHeaders }), env, ctx);
+      const authenticatedRequest = new Request(request, { headers: cleanHeaders });
+      // vinext deliberately leaves its compiled CSS/JS to Workers Static Assets.
+      // With run_worker_first, we must forward these requests ourselves AFTER
+      // verifying Access. Delegating them to vinext returns 404 and prevents
+      // both the styles and the client-side app from loading.
+      const response = new URL(request.url).pathname.startsWith("/_next/static/")
+        ? await env.ASSETS.fetch(authenticatedRequest)
+        : await handler.fetch(authenticatedRequest, env, ctx);
       const outgoing = new Response(response.body, response);
       outgoing.headers.set("Cache-Control", "private, no-store");
       outgoing.headers.set("X-Robots-Tag", "noindex, nofollow");
       outgoing.headers.set("X-Content-Type-Options", "nosniff");
+      outgoing.headers.set("X-Erem-Version", appVersion);
       return outgoing;
     });
   },
