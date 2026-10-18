@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1789355103319,
+      "tag": "0000_flimsy_makkari",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1789389329930,
+      "tag": "0001_lowly_firestar",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1789478865823,
+      "tag": "0002_funny_vision",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1790091688410,
+      "tag": "0003_classy_triathlon",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1790559520208,
+      "tag": "0004_broken_lord_hawal",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1790560135196,
+      "tag": "0005_puzzling_ghost_rider",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1792273925771,
+      "tag": "0006_white_marvex",
+      "breakpoints": true
+    }
+  ]
+}

@@ -1,3 +1,3 @@
-# Migração do Estude Erem
+# Migração Estude Erem
 
-Repositório privado. Importação do código em andamento. Não há hospedagem independente nem APK nesta etapa. O site original permanece fechado e preservado.
+Código importado para repositório privado. Login independente, hospedagem externa, transferência de dados e APK ainda pendentes. Site original preservado e fechado.

@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import {questions,createQuestionList} from '../lib/question-bank';
+import {topics,subjects} from '../lib/study-data';
+import {practiceQuestions,practiceTopics} from '../lib/practice-expansion';
+import {readingUpdateQuestions} from '../lib/reading-update';
+import {initialState,reduceStudy} from '../lib/study-model';
+const additions=[...practiceQuestions,...readingUpdateQuestions];
+assert.equal(questions.length,6780);
+assert.equal(new Set(questions.map(q=>q.id)).size,questions.length);
+assert.equal(new Set(questions.map(q=>q.prompt)).size,questions.length);
+assert.equal(new Set(topics.map(t=>t.id)).size,topics.length);
+assert.equal(new Set(additions.map(q=>q.subject)).size,23);
+for(const q of additions){assert.equal(q.options.length,4);assert.equal(new Set(q.options).size,4);assert.ok(q.options[q.answer]);assert.ok(Number.isInteger(q.answer));assert.equal(topics.find(t=>t.id===q.topic)?.subject,q.subject);assert.ok(q.explanation.includes('4.'));assert.ok(q.prompt.length>180);}
+const first=[60,24,792,102,2,15,42,121,12,1.5,1,2,54,6,9,160,2,3,2,2,17,20,.67,5,14,7,200,3,202,400,20,110,1.5,350,110,31,12,8,5,2048];
+const last=[1008,340,6480,8160,160,331,516,8100,170,80.5,80,160,765,164,6724,3320,81,82,81,81,96,99,4266.67,400,488,165,200,82,360,16200,810,900,41,4300,900,110,328,166,84,82944];
+practiceTopics.forEach((t,i)=>{const qs=practiceQuestions.filter(q=>q.topic===t.id);assert.equal(qs.length,80);for(const [q,expected] of [[qs[0],first[i]],[qs[79],last[i]]] as const)assert.equal(parseFloat(q.options[q.answer].replace(',','.')),expected,`${q.id}: independent endpoint answer`);});
+const settings={subjects:['calculo1'],topics:['topic-1005'],difficulty:'all' as const,order:'random' as const,count:20,mode:'unseen' as const};
+const ids=createQuestionList(settings,()=>.4,{},questions);assert.equal(new Set(ids).size,20);
+assert.ok(createQuestionList(settings,()=>.7,Object.fromEntries(ids.map(id=>[id,1])),questions).every(id=>!ids.includes(id)));
+const now=new Date('2026-10-05T20:00:00Z');let state=reduceStudy(initialState(),{type:'start',settings},now);
+const q=questions.find(q=>q.id===state.session!.questions[0])!;
+state=reduceStudy(state,{type:'answer',sessionId:state.session!.id,questionId:q.id,answer:q.answer},now);
+const stats={...state.stats};state=reduceStudy(state,{type:'discard'},now);assert.equal(state.session,null);assert.deepEqual(state.stats,stats);state=reduceStudy(state,{type:'start',settings},now);assert.ok(state.session);
+console.log(JSON.stringify({total:questions.length,added:additions.length,parameterized:practiceQuestions.length,editorial:readingUpdateQuestions.length,topics:topics.length,subjects:subjects.length,payloadMB:(Buffer.byteLength(JSON.stringify({subjects,topics,questions}))/1024/1024).toFixed(2),checked:'unique IDs/prompts/options, 80 numeric endpoint keys, 23 subjects, no repeated practice and close/restart preserving stats'},null,2));

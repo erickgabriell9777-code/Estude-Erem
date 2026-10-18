@@ -1,0 +1,9 @@
+const assert=require('node:assert/strict');const {recognizeShape}=require('../.sites-runtime/shapes-check/drawing-shapes.js');const {strokeSchema}=require('../.sites-runtime/shapes-check/personal-notes.js');
+function trace(vertices){const points=[];for(let i=1;i<vertices.length;i++)for(let j=0;j<30;j++){const t=j/30,a=vertices[i-1],b=vertices[i];points.push([a[0]+(b[0]-a[0])*t+3*Math.sin(j*2),a[1]+(b[1]-a[1])*t+3*Math.cos(j*3)]);}return [...points,vertices.at(-1)];}
+const fixtures=[['Quadrado',trace([[200,100],[397,105],[403,301],[199,297],[200,100]])],['Retângulo',trace([[100,100],[450,104],[455,300],[104,301],[100,100]])],['Triângulo',trace([[280,100],[470,400],[110,398],[280,100]])],['Linha',trace([[100,100],[450,350]])],['Círculo',Array.from({length:101},(_,i)=>[350+(100+3*Math.sin(i))*Math.cos(i*Math.PI/50),300+(100+3*Math.sin(i))*Math.sin(i*Math.PI/50)])],['Elipse',Array.from({length:101},(_,i)=>[350+180*Math.cos(i*Math.PI/50),300+95*Math.sin(i*Math.PI/50)])]];
+for(const [name,points] of fixtures){const result=recognizeShape(points);assert.equal(result?.name,name);strokeSchema.parse({color:'#2563eb',width:3,points:result.points});if(name!=='Linha')assert.deepEqual(result.points[0],result.points.at(-1));}
+const square=fixtures[0][1];const rotated=square.map(([x,y])=>[500+(x-300)*Math.cos(.5)-(y-200)*Math.sin(.5),350+(x-300)*Math.sin(.5)+(y-200)*Math.cos(.5)]);assert.equal(recognizeShape(rotated)?.name,'Quadrado');
+assert.equal(recognizeShape(trace([[100,100],[350,100],[350,350]])),null);
+assert.equal(recognizeShape([[20,20],[22,22],[21,21],[23,22],[24,21],[20,20]]),null);
+assert.equal(recognizeShape(trace([[100,100],[400,400],[100,400],[400,100],[100,100],[400,400],[100,400],[100,100]])),null);
+console.log('Recognition passed: rough shapes, rotated square, closure, persistence bounds and rejection of open scribbles/tiny strokes.');

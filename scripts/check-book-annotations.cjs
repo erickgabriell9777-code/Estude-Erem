@@ -1,0 +1,14 @@
+const {DatabaseSync}=require('node:sqlite');const fs=require('node:fs');const assert=require('node:assert/strict');const {markSchema}=require('../.sites-runtime/reader-check/book-annotations.js');
+const db=new DatabaseSync(':memory:');db.exec(fs.readFileSync('drizzle/0003_classy_triathlon.sql','utf8'));
+const mark=markSchema.parse({id:crypto.randomUUID(),page:100,kind:'highlight',color:'#facc15',x:.1,y:.2,w:.5,h:.03,text:''});
+const insert=db.prepare('INSERT INTO book_marks(user_id,book_id,id,data,created_at) VALUES(?,?,?,?,?) ON CONFLICT(user_id,book_id,id) DO NOTHING');
+insert.run('alice','book',mark.id,JSON.stringify(mark),'2026-09-22');insert.run('alice','book',mark.id,JSON.stringify(mark),'2026-09-22');
+assert.equal(db.prepare('SELECT count(*) AS n FROM book_marks').get().n,1);
+assert.equal(db.prepare('SELECT count(*) AS n FROM book_marks WHERE user_id=? AND book_id=?').get('bob','book').n,0);
+db.prepare('DELETE FROM book_marks WHERE user_id=? AND book_id=? AND id=?').run('bob','book',mark.id);
+assert.deepEqual(JSON.parse(db.prepare('SELECT data FROM book_marks WHERE user_id=? AND book_id=?').get('alice','book').data),mark);
+assert.equal(markSchema.safeParse({...mark,x:.9,w:.5}).success,false);
+assert.equal(markSchema.safeParse({...mark,text:'x'.repeat(2001)}).success,false);
+const pos=db.prepare('INSERT INTO book_reading(user_id,book_id,page) VALUES(?,?,?) ON CONFLICT(user_id,book_id) DO UPDATE SET page=excluded.page');pos.run('alice','book',12);pos.run('alice','book',100);pos.run('bob','book',2);
+assert.equal(db.prepare('SELECT page FROM book_reading WHERE user_id=? AND book_id=?').get('alice','book').page,100);
+console.log('Annotation migration, persistence, retry deduplication, bounds and owner isolation passed.');

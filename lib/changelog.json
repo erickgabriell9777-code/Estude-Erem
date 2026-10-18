@@ -1,0 +1,76 @@
+[
+  {
+    "version": "1.2.0",
+    "date": "2026-10-17",
+    "categories": {
+      "Novidades": [
+        "Cadernos com várias páginas, escrita, formas ao segurar, salvamento automático e rascunhos vinculados às questões."
+      ],
+      "Melhorias": [
+        "Introdução dos assuntos com ideia principal, exemplo resolvido e acesso à prática.",
+        "Papel pautado, quadriculado ou liso, com fundo claro ou escuro e ferramentas recolhidas em uma barra compacta.",
+        "Rascunho da questão acessível pelo cabeçalho, mantendo somente Tirar dúvida na área de ajuda."
+      ],
+      "Segurança": [
+        "Cadernos privados por usuário, proteção contra alterações concorrentes e opção de salvar cópia em conflitos."
+      ]
+    }
+  },
+  {
+    "version": "1.1.1",
+    "date": "2026-10-17",
+    "categories": {
+      "Melhorias": [
+        "Tela de questões simplificada: apenas Tirar dúvida entre os atalhos de ajuda; removidos teoria, favorito, anotação e pistas dessa área."
+      ]
+    }
+  },
+  {
+    "version": "1.1.0",
+    "date": "2026-10-17",
+    "categories": {
+      "Melhorias": [
+        "Seletores com busca em janela própria e trilhas divididas em unidades expansíveis.",
+        "Leitor em tela cheia com modos Ler e Marcar, ferramentas recolhidas e retorno ao topo ao trocar página.",
+        "Correção em passos, progresso por assunto e revisão de flashcards em 10 minutos, 1 dia ou 7 dias."
+      ],
+      "Novidades": [
+        "24 questões autorais nas 23 matérias, com justificativas das alternativas e duas figuras acessíveis."
+      ],
+      "Desempenho": [
+        "Leitor e ferramentas em módulos separados; controles de seleção e estado inicial desacoplados do banco de questões."
+      ],
+      "Acessibilidade": [
+        "Foco visível, retorno de foco no seletor e ajustes de tamanho de toque e formulários."
+      ]
+    }
+  },
+  {
+    "version": "1.0.0",
+    "date": "2026-10-05",
+    "categories": {
+      "Novidades": [
+        "Nova tela inicial com cinco matérias em cartões, busca e opção Ver mais.",
+        "Mais 3.254 exercícios em 49 assuntos: 3.200 variações numéricas e 54 questões originais com texto-base, distribuídos pelas 23 matérias."
+      ],
+      "Melhorias": [
+        "Troca de atividade com as opções Continuar nesta atividade ou Encerrar e continuar, preservando respostas confirmadas."
+      ],
+      "Desempenho": [
+        "Cache temporário do catálogo no servidor para reduzir releituras do banco durante as respostas."
+      ]
+    }
+  },
+  {
+    "version": "0.2.0",
+    "date": "2026-10-02",
+    "categories": {
+      "Novidades": [
+        "Versão do Estude Erem e histórico de atualizações nas Configurações."
+      ],
+      "Melhorias": [
+        "Uma fonte de versão para o aplicativo e informações técnicas de build."
+      ]
+    }
+  }
+]
