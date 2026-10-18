@@ -1,29 +1,34 @@
-# Estude Erem — migração privada para Web e Android
+# Estude Erem — Web e Android
 
-Código-fonte do aplicativo de estudos, copiado do projeto Sites em 18/10/2026 UTC. Repositório privado de desenvolvimento. Não há implantação independente ou APK nesta etapa.
+Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.1 prepara a implantação Web independente na Cloudflare, protegida por Cloudflare Access e lista de e-mails autorizados no servidor.
+
+## Executar e publicar
+
+Use a versão de Node indicada em `package.json` e pnpm 11.25.0.
+
+```sh
+pnpm install --frozen-lockfile
+pnpm run test:access
+pnpm run build
+pnpm run deploy
+```
+
+A instalação e o build geram os arquivos PDF.js a partir da dependência bloqueada. O deploy usa o Worker compilado e aplica as migrações do D1. Veja [o guia de configuração da versão fechada](docs/cloudflare-private-beta.md), incluindo os campos da Cloudflare e as variáveis de acesso obrigatórias.
+
+Sem configuração de acesso, o Worker bloqueia o app e suas APIs. Não existe login anônimo, mock de produção ou confiança nos cabeçalhos do ChatGPT. O nome antigo `chatgpt-auth.ts` é somente uma ponte de compatibilidade para as rotas existentes.
 
 ## Conteúdo preservado
 
-- Interface React, matérias, banco de questões e resolução.
-- Biblioteca e leitor PDF, marcações, ferramentas de estudo e progresso.
-- Atualização de cadernos e introduções aos assuntos ainda não publicada no site original.
-- Esquema de banco e migrações SQL. Dados pessoais do banco não foram exportados.
+- Interface React, matérias, questões e resoluções.
+- Biblioteca, leitor PDF, marcações, ferramentas de estudo e progresso.
+- Cadernos e introduções aos assuntos da atualização em desenvolvimento.
+- Esquema de banco e migrações SQL.
 
-## Instalação
+## Ainda pendente na conta do proprietário
 
-Use Node.js conforme `package.json` e a versão do pnpm indicada no campo `packageManager`. Execute `pnpm install --frozen-lockfile` e depois `pnpm run postinstall` se o gerenciador não executar esse script automaticamente. Os recursos PDF.js são reconstruídos da dependência bloqueada, sem armazenar binários gerados no Git.
+- Validar a publicação real e a política de acesso privada.
+- Configurar as variáveis do Access e os secrets do serviço de livros.
+- Transferir e conferir progresso e arquivos do site original, com backup e associação das contas.
+- Gerar e distribuir o aplicativo Android para testes privados.
 
-## Estado de migração — NÃO implantar fora do Sites ainda
-
-A autenticação atual em `app/chatgpt-auth.ts` depende de cabeçalhos autenticados pelo dispatcher do Sites. Esses cabeçalhos NÃO são confiáveis se recebidos diretamente da internet. Substituir essa autenticação e remover o mock de desenvolvimento antes da hospedagem independente.
-
-O backend usa Cloudflare Workers/D1. A biblioteca usa um serviço externo configurado por variáveis de ambiente; nenhuma credencial foi incluída. O identificador original do Sites fica preservado apenas para rastreabilidade, sem configurar publicação automática.
-
-## Próximas entregas
-
-1. Login independente, cadastro público desativado e autorização no servidor.
-2. Hospedagem independente em conta do proprietário, inicialmente fechada.
-3. Transferência conferida de dados e arquivos, com cópia de segurança e mapeamento de usuários.
-4. Aplicativo Android conectado à mesma estrutura e distribuição de teste privada.
-
-O site original deve permanecer fechado e preservado até a validação da nova hospedagem.
+O site original permanece preservado. Não há dados pessoais, PDFs enviados ou credenciais de runtime neste repositório. O banco novo não importa automaticamente o progresso antigo.
