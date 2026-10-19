@@ -1,7 +1,7 @@
 {
   "name": "estude-erem",
-  "version": "1.2.4",
-  "appBuild": 9,
+  "version": "1.2.5",
+  "appBuild": 10,
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -18,7 +18,8 @@
     "deploy": "node scripts/deploy-cloudflare.mjs",
     "db:migrate": "node scripts/deploy-cloudflare.mjs --migrate-only",
     "test:access": "node --experimental-strip-types --test scripts/access-auth.test.mjs",
-    "test:runtime": "node --test scripts/cloudflare-runtime.test.mjs"
+    "test:runtime": "node --test scripts/cloudflare-runtime.test.mjs",
+    "test:study": "node --experimental-strip-types --test scripts/mixed-study.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

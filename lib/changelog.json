@@ -1,5 +1,15 @@
 [
   {
+    "version": "1.2.5",
+    "date": "2026-10-18",
+    "categories": {
+      "Melhorias": [
+        "Marque várias matérias na página inicial e escolha os assuntos numa única sessão, com questões distribuídas entre as matérias.",
+        "Caderno com folha mais comprida, ajustes recolhidos e alternativas visíveis numa coluna lateral, também no celular."
+      ]
+    }
+  },
+  {
     "version": "1.2.4",
     "date": "2026-10-18",
     "categories": {

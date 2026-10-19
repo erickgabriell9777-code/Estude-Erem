@@ -96,4 +96,40 @@ test("compiled Cloudflare app serves authenticated styles, scripts and study dat
       }
     }
   });
+
+  await t.test("a two-subject session contains questions from both subjects", async () => {
+    const response = await fetch("/api/study", { headers: cookie });
+    const {catalogue, revision} = await response.json();
+    const selected = ['portugues', 'matematica'];
+    const topics = selected.map(subject => catalogue.questions.find(question => question.subject === subject).topic);
+    const result = await fetch("/api/study", {
+      method: "POST", headers: { ...cookie, "Content-Type": "application/json", Origin: "http://localhost" },
+      body: JSON.stringify({revision, action: {type: "start", settings: {subjects: selected, topics, count: 2, difficulty: "all", order: "ordered", mode: "unseen"}}}),
+    });
+    assert.equal(result.status, 200);
+    const {state} = await result.json();
+    const actual = state.session.questions.map(id => catalogue.questions.find(question => question.id === id).subject);
+    assert.deepEqual(new Set(actual), new Set(selected));
+  });
+
+  await t.test("marks in the extended paper area survive save/reload without changing existing strokes", async () => {
+    const oldStroke = {color: "#93c5fd", width: 3, opacity: 1, points: [[12,20],[40,700]]};
+    const lowerStroke = {...oldStroke, points: [[40,1750],[1000,2000]]};
+    const note = {id: crypto.randomUUID(), revision: 0, title: "Caderno de teste", subject: "matematica", questionId: null,
+      pages: [{id: crypto.randomUUID(), name: "Página 1", paper: "lined", dark: true, text: "", strokes: [oldStroke, lowerStroke]}]};
+    const save = data => fetch("/api/notebooks", {method: "POST", headers: {...cookie, "Content-Type": "application/json", Origin: "http://localhost"}, body: JSON.stringify(data)});
+    const result = await save(note);
+    assert.equal(result.status, 200);
+    const saved = (await result.json()).notebook;
+    assert.equal(saved.revision, 1);
+    const reopened = await fetch(`/api/notebooks?id=${note.id}`, {headers: cookie});
+    assert.equal(reopened.status, 200);
+    assert.deepEqual((await reopened.json()).notebook.pages[0].strokes, [oldStroke, lowerStroke]);
+    const invalid = {...saved, pages: [{...note.pages[0], strokes: [{...lowerStroke, points: [[0,2001]]}]}]};
+    const rejected = await save(invalid);
+    assert.equal(rejected.status, 400);
+    await rejected.arrayBuffer();
+    const unchanged = await fetch(`/api/notebooks?id=${note.id}`, {headers: cookie});
+    assert.deepEqual((await unchanged.json()).notebook, saved);
+  });
 });

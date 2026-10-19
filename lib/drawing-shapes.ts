@@ -21,7 +21,7 @@ function simplify(points:Point[],epsilon:number):Point[]{
  return max>epsilon?[...simplify(points.slice(0,index+1),epsilon).slice(0,-1),...simplify(points.slice(index),epsilon)]:[points[0],points.at(-1)!];
 }
 export type RecognizedShape={name:string;points:Point[]};
-export function recognizeShape(input:Point[]):RecognizedShape|null{
+export function recognizeShape(input:Point[],bounds={width:1000,height:700}):RecognizedShape|null{
  if(input.length<6)return null;
  const left=Math.min(...input.map(p=>p[0])),right=Math.max(...input.map(p=>p[0])),top=Math.min(...input.map(p=>p[1])),bottom=Math.max(...input.map(p=>p[1]));
  const w=right-left,h=bottom-top,diag=Math.hypot(w,h),first=input[0],last=input.at(-1)!;
@@ -46,7 +46,7 @@ export function recognizeShape(input:Point[]):RecognizedShape|null{
  const ratio=(x1-x0)/(y1-y0),square=ratio>.8&&ratio<1.25;
  if(square){const size=((x1-x0)+(y1-y0))/2,cx=(x0+x1)/2,cy=(y0+y1)/2;x0=cx-size/2;x1=cx+size/2;y0=cy-size/2;y1=cy+size/2;}
  const points:Point[]=[[x0,y0],[x1,y0],[x1,y1],[x0,y1],[x0,y0]].map(([x,y])=>[Math.round(x*co-y*si),Math.round(x*si+y*co)]);
- if(points.every(([x,y])=>x>=0&&x<=1000&&y>=0&&y<=700))return {name:square?'Quadrado':'Retângulo',points};
+ if(points.every(([x,y])=>x>=0&&x<=bounds.width&&y>=0&&y<=bounds.height))return {name:square?'Quadrado':'Retângulo',points};
  }
  }
  const cx=(left+right)/2,cy=(top+bottom)/2,rx=w/2,ry=h/2;

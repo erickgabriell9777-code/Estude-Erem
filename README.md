@@ -1,6 +1,6 @@
 # Estude Erem — Web e Android
 
-Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.3 corrige a entrega dos estilos e scripts na Cloudflare após o login. Cloudflare Access e a lista de e-mails autorizados continuam protegendo páginas, APIs e arquivos.
+Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.5 permite marcar várias matérias na página inicial e distribui as questões entre elas. O caderno tem folha mais comprida, ajustes recolhidos e alternativas numa coluna lateral. Cloudflare Access e a lista de e-mails autorizados protegem páginas, APIs e arquivos.
 
 ## Executar e publicar
 
@@ -9,6 +9,7 @@ Use a versão de Node indicada em `package.json` e pnpm 11.25.0.
 ```sh
 pnpm install --frozen-lockfile
 pnpm run test:access
+pnpm run test:study
 pnpm run build
 pnpm run test:runtime
 pnpm run deploy

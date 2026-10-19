@@ -139,16 +139,8 @@ const additions: Question[] = extra.map(([index, prompt, options, answer, explan
 const rank = { Fácil: 0, Médio: 1, Difícil: 2 };
 export const questions: Question[] = [...baseQuestions, ...additions, ...expandedQuestions, ...researchedQuestions, ...calculusQuestions, ...growthQuestions, ...notebookQuestions, ...bookQuestions, ...curriculumQuestions, ...coreQuestions, ...engineeringQuestions, ...moreEngineeringQuestions, ...longCaseQuestions, ...readingBatchQuestions, ...readingBatch2Questions, ...coverageBatchQuestions, ...portugueseDepthQuestions, ...practiceQuestions, ...readingUpdateQuestions, ...conceptQuestions].sort((a, b) => Number(a.topic.slice(6)) - Number(b.topic.slice(6)) || rank[a.level] - rank[b.level]);
 export {defaultSettings, type Settings} from "./question-selection";
-import {defaultSettings,eligibleQuestions as selectEligible,type Settings} from "./question-selection";
+import {defaultSettings,eligibleQuestions as selectEligible,createQuestionList as selectQuestionList,type Settings} from "./question-selection";
 export function eligibleQuestions(settings:Settings,bank:Question[]=questions,seenCounts?:Record<string,number>){return selectEligible(settings,bank,seenCounts);}
 export function createQuestionList(settings: Settings, random: () => number = Math.random, seenCounts: Record<string, number> = {}, bank: Question[] = questions) {
-  const eligible = [...eligibleQuestions(settings, bank, seenCounts)];
-  if (!Number.isInteger(settings.count) || settings.count < 1 || settings.count > eligible.length) throw new Error("Não há perguntas suficientes neste modo. Reduza a quantidade, selecione mais assuntos ou altere entre inéditas e revisão.");
-  if (settings.order === "random") for (let i = eligible.length - 1; i > 0; i--) { const j = Math.floor(random() * (i + 1)); [eligible[i], eligible[j]] = [eligible[j], eligible[i]]; }
-  // Prefer the least practiced questions across sessions. Stable sorting preserves
-  // the requested topic sequence when counts tie, or the shuffled order otherwise.
-  eligible.sort((a, b) => (seenCounts[a.id] ?? 0) - (seenCounts[b.id] ?? 0));
-  const chosen = eligible.slice(0, settings.count);
-  if (settings.order === "ordered") chosen.sort((a,b) => Number(a.topic.slice(6)) - Number(b.topic.slice(6)) || rank[a.level] - rank[b.level]);
-  return chosen.map(q => q.id);
+  return selectQuestionList(settings, random, seenCounts, bank);
 }
