@@ -6,7 +6,7 @@ export async function GET(req:Request){
  const id=new URL(req.url).searchParams.get('id');if(!z.string().uuid().safeParse(id).success)return new Response('Livro inválido',{status:400});
  const range=req.headers.get('range');if(range&&!/^bytes=\d+-\d*$/.test(range))return new Response('Intervalo inválido',{status:416});
  try{
- const d=await booksRequest({action:'open',id,owner:await bookOwner(user.email)});
+ const d=await booksRequest({action:'open',id,owner:await bookOwner(user)});
  if(typeof d.url!=='string')throw new Error('Arquivo indisponível');
  const upstream=await fetch(d.url,{headers:range?{Range:range}:{},signal:AbortSignal.timeout(60000)});
  if(!upstream.ok)return new Response('Não foi possível ler o PDF. Reabra o livro.',{status:upstream.status===416?416:503});

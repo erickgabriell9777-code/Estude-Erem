@@ -10,13 +10,15 @@ export const root = fileURLToPath(new URL("../../", import.meta.url));
 const require = createRequire(realpathSync(`${root}/node_modules/wrangler/package.json`));
 const { Miniflare } = require("miniflare");
 
-export async function createTestRuntime() {
+export async function createTestRuntime({accountBindings={},outbound}={}) {
   const { publicKey, privateKey } = await generateKeyPair("RS256");
   const jwk = { ...await exportJWK(publicKey), kid: "runtime-test", alg: "RS256" };
   const bindings = {
+    EREM_ACCESS_MODE: 'private',
     ACCESS_TEAM_DOMAIN: "https://erem-test.cloudflareaccess.com",
     ACCESS_AUD: "private-app",
     EREM_ALLOWED_EMAILS: "owner@example.com,partner@example.com",
+    ...accountBindings,
   };
   const mf = new Miniflare({
     modules: [
@@ -36,9 +38,10 @@ export async function createTestRuntime() {
     bindings,
     d1Databases: { DB: "erem-local-integration-test" },
     cf: false,
-    outboundService: request => {
-      assert.equal(request.url, `${bindings.ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs`);
-      return Response.json({ keys: [jwk] });
+    outboundService: async request => {
+      if(request.url===`${bindings.ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs`) return Response.json({ keys: [jwk] });
+      if(outbound) return outbound(request,{jwk,privateKey});
+      assert.fail(`Unexpected outbound request: ${new URL(request.url).origin}${new URL(request.url).pathname}`);
     },
   });
   try {

@@ -1,5 +1,9 @@
 # Estado da migração — 18/10/2026
 
+## Contas normais — 1.2.6
+
+Fluxos de e-mail, OAuth Google/Facebook, telefone e Turnstile integrados no código. Ativação de provedores, SMTP/SMS e Turnstile pendente; modo privado mantido. [Plano de configuração e troca de acesso](docs/account-login.md).
+
 ## Implementado no código
 
 - Origem preservada: aplicativo Sites; cópia independente no GitHub privado.

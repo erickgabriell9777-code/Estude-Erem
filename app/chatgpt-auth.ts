@@ -2,7 +2,8 @@ import { getRequestUser } from "../lib/request-user";
 import type { AppUser } from "../lib/access-auth";
 
 // Compatibility exports for existing API routes. Authentication now comes
-// from the Worker and Cloudflare Access, never from ChatGPT identity headers.
+// from verified Access or a verified Supabase account session, never from headers
+// that claim a user ID or a browser-provided email.
 export type ChatGPTUser = AppUser;
 export async function getChatGPTUser(): Promise<AppUser | null> {
   return getRequestUser();
@@ -11,7 +12,7 @@ export async function getChatGPTUser(): Promise<AppUser | null> {
 export async function requireChatGPTUser(_returnTo: string): Promise<AppUser> {
   const user = getRequestUser();
   if (user) return user;
-  // No anonymous or mock identity fallback, including in local development.
+  // Only the Worker may establish the verified request identity.
   throw new Error("Authenticated request context is unavailable");
 }
 

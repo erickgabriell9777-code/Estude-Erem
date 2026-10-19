@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.2.6",
+    "date": "2026-10-18",
+    "categories": {
+      "Novidades": [
+        "Preparação do cadastro e login por e-mail, Google, Facebook e telefone, com proteção Cloudflare Turnstile."
+      ]
+    }
+  },
+  {
     "version": "1.2.5",
     "date": "2026-10-18",
     "categories": {

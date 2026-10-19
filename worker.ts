@@ -3,12 +3,40 @@ import { AccessError, authenticateAccess } from "./lib/access-auth";
 import { withRequestUser } from "./lib/request-user";
 import { createAccessResponse } from "./lib/access-response";
 import { appVersion } from "./lib/app-version";
+import { accountAction, accountUser, createAccountClient } from "./lib/account-auth";
 
 export default {
   async fetch(request: Request, env: Cloudflare.Env, ctx: ExecutionContext): Promise<Response> {
     let user;
+    const path = new URL(request.url).pathname;
+    const accounts = env.EREM_ACCESS_MODE === "accounts";
+    if(path.startsWith("/auth/")) {
+      try { return await accountAction(request,env); }
+      catch { return Response.json({error:"Não foi possível conectar. Tente novamente."},{status:503,headers:{"Cache-Control":"private, no-store","X-Content-Type-Options":"nosniff"}}); }
+    }
+    if(accounts && path.startsWith("/_next/static/")) return env.ASSETS.fetch(request);
+    if(path === "/login") {
+      const page = await handler.fetch(request,env,ctx);
+      const response = new Response(page.body,page);
+      response.headers.set("Cache-Control","private, no-store");
+      response.headers.set("X-Robots-Tag","noindex, nofollow");
+      response.headers.set("X-Content-Type-Options","nosniff");
+      response.headers.set("X-Erem-Version",appVersion);
+      return response;
+    }
+    const session = accounts ? createAccountClient(request,env) : null;
     try {
-      user = await authenticateAccess(request.headers, env);
+      if(accounts){
+        user = session ? await accountUser(request,env,session.client) : null;
+        if(!user){
+          const response = path.startsWith("/api/")
+            ? Response.json({error:"Entre na sua conta para continuar.",code:"SESSION_MISSING"},{status:401,headers:{"Cache-Control":"private, no-store"}})
+            : new Response(null,{status:303,headers:{Location:"/login","Cache-Control":"private, no-store"}});
+          return session ? session.finish(response) : response;
+        }
+      }else{
+        user = await authenticateAccess(request.headers, env);
+      }
     } catch (error) {
       return createAccessResponse(request, error instanceof AccessError ? error : new AccessError(503), appVersion);
     }
@@ -33,7 +61,7 @@ export default {
       outgoing.headers.set("X-Robots-Tag", "noindex, nofollow");
       outgoing.headers.set("X-Content-Type-Options", "nosniff");
       outgoing.headers.set("X-Erem-Version", appVersion);
-      return outgoing;
+      return session ? session.finish(outgoing) : outgoing;
     });
   },
 };

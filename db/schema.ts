@@ -60,3 +60,7 @@ export const drawingNotebooks = sqliteTable("drawing_notebooks", {
  revision: integer("revision").notNull(),
  updatedAt: text("updated_at").notNull(),
 },table=>[primaryKey({columns:[table.userId,table.id]})]);
+
+export const authIdentityLinks=sqliteTable('auth_identity_links',{
+ authUserId:text('auth_user_id').primaryKey(),appUserId:text('app_user_id').notNull().unique(),createdAt:text('created_at').notNull(),
+});

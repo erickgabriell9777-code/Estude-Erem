@@ -1,6 +1,6 @@
 # Estude Erem — Web e Android
 
-Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.5 permite marcar várias matérias na página inicial e distribui as questões entre elas. O caderno tem folha mais comprida, ajustes recolhidos e alternativas numa coluna lateral. Cloudflare Access e a lista de e-mails autorizados protegem páginas, APIs e arquivos.
+Código-fonte do aplicativo de estudos, em repositório privado. A versão 1.2.6 prepara contas com Supabase Auth e Cloudflare Turnstile. O acesso atual permanece fechado até configurar os provedores e validar a entrada real. Veja [a configuração e o estado de ativação do login](docs/account-login.md). A seleção de várias matérias e o caderno ampliado da versão 1.2.5 continuam disponíveis.
 
 ## Executar e publicar
 
@@ -12,6 +12,7 @@ pnpm run test:access
 pnpm run test:study
 pnpm run build
 pnpm run test:runtime
+pnpm run test:accounts
 pnpm run deploy
 ```
 

@@ -39,7 +39,7 @@ const navigationGroups = [
 type Envelope = { state: StudyState; revision: number; error?: string; catalogue?: Catalogue };
 const difficultyChoices = [ { value: "all", title: "Misturada", text: "Um pouco de cada", icon: "◈" }, { value: "Fácil", title: "Fácil", text: "Comece pela base", icon: "Ⅰ" }, { value: "Médio", title: "Média", text: "Avance um passo", icon: "Ⅱ" }, { value: "Difícil", title: "Difícil", text: "Teste o que aprendeu", icon: "Ⅲ" } ];
 
-export default function StudyApp() {
+export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
   useEffect(()=>{
     const viewport=window.visualViewport;
     const update=()=>{document.documentElement.style.setProperty('--app-visible-height',`${viewport?.height??window.innerHeight}px`);document.documentElement.style.setProperty('--app-visible-top',`${viewport?.offsetTop??0}px`);};
@@ -211,7 +211,7 @@ export default function StudyApp() {
         {view === "errors" && <><div className="context-actions"><Button variant="outline" onClick={()=>openResource("analysis")}>Analisar meus erros</Button></div><NotebookPage state={state} catalogue={catalogue} busy={busy} review={reviewErrors} resume={resume} study={()=>go("setup")}/></>}
         {(view === "home" || view === "setup") && <HomePage state={state} catalogue={catalogue} go={go} resume={resume} openResource={openResource} topic={setIntroTopic} selectedSubjects={settings.subjects} toggleSubject={toggleSubject} prepareSubjects={prepareSubjects}/>}
         {view === "xp" && <XpPage state={state} go={go}/>}
-        {view === "profile" && <ProfilePage state={state} name={name} setName={setName} busy={busy} go={go} save={async()=>{const result=await mutate({type:"profile",name:name.trim()}); if(result) toast.success("Perfil atualizado.");}}/>}
+        {view === "profile" && <><ProfilePage state={state} name={name} setName={setName} busy={busy} go={go} save={async()=>{const result=await mutate({type:"profile",name:name.trim()}); if(result) toast.success("Perfil atualizado.");}}/>{accountLogin&&<form action="/auth/signout" method="post" className="mt-6"><Button variant="outline" type="submit" disabled={busy}>Sair da conta</Button></form>}</>}
         {view === "settings" && <SettingsPage draft={appearanceDraft} setDraft={setAppearanceDraft} saved={savedAppearance} busy={busy} save={async()=>{const result=await mutate({type:"appearance",appearance:appearanceDraft}); if(result) toast.success("Aparência salva na sua conta.");}}/>}
         {view === "setup" && <Dialog open onOpenChange={open=>!open&&go("home")}><DialogContent className="session-dialog"><DialogHeader><DialogTitle>Preparar sessão</DialogTitle><DialogDescription>Escolha assuntos, nível e quantidade para praticar.</DialogDescription></DialogHeader>
           <div className="page-heading"><div><p className="eyebrow">SEU PRÓXIMO PASSO</p><h1>O que vamos estudar hoje?</h1><p>Escolha o que quer aprender. A sessão fica do seu jeito.</p></div><span className="catalog-pill"><BookOpen size={16} />{questions.length} questões para começar</span></div>
