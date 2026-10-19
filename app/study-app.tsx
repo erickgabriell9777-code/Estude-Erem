@@ -48,7 +48,6 @@ export default function StudyApp() {
   },[]);
   const [menuOpen,setMenuOpen]=useState(false);
   const [resource,setResource]=useState<{section:string;topic?:string;question?:string}|null>(null);
-  const [pathSubject,setPathSubject]=useState<string|undefined>();
   const [toolsLoaded,setToolsLoaded]=useState(false);
   useEffect(()=>{const id=setTimeout(()=>setToolsLoaded(true),2000);return()=>clearTimeout(id);},[]);
   const openResource=(section:string,topic?:string,question?:string)=>{const open=()=>{setToolsLoaded(true);setResource({section,topic,question});}; if(["exam","flashcard","daily"].includes(section)) requestTransition(open); else open();};
@@ -157,6 +156,15 @@ export default function StudyApp() {
     setSettings({subjects:[topic.subject],topics:[id],difficulty:"all",order:"ordered",count:Math.min(5,fresh||questions.filter(q=>q.topic===id).length),mode:fresh?"unseen":"review"});
     setStep(2);go("setup");
   };
+  const prepareSubject = (id:string) => {
+    if(!subjects.some(subject=>subject.id===id)) return;
+    requestTransition(()=>{
+      setSettings({...defaultSettings,subjects:[id],topics:topics.filter(topic=>topic.subject===id).map(topic=>topic.id)});
+      setStep(1);
+      setView("setup");
+      window.scrollTo({top:0,behavior:"instant"});
+    });
+  };
   const resume = () => { if(!session) return; setQuestionIndex(Math.max(0, session.questions.findIndex(id => !Object.hasOwn(session.answers, id)))); setAnswer(""); setView("quiz"); window.scrollTo(0, 0); };
   const confirm = async () => {
     if(!session || !current || answer === "") return;
@@ -198,11 +206,11 @@ export default function StudyApp() {
       <main className={`workspace workspace-${view}`} id="main-content">
         {error ? <div className="error-panel" role="alert"><CircleHelp /><h1>Vamos tentar de novo?</h1><p>{error}</p><Button onClick={() => void load()}>Tentar novamente</Button></div> : loading ? <div className="loading-panel" aria-label="Carregando seus estudos"><Skeleton className="h-10 w-72" /><Skeleton className="h-5 w-56" /><div className="subject-grid">{Array.from({ length: 6 }, (_, i) => <Skeleton className="h-32 rounded-2xl" key={i} />)}</div></div> : <>
         {!loading && (toolsLoaded||view==="quiz") && <Suspense fallback={<p role="status">Carregando ferramentas…</p>}><StudyTools catalogue={catalogue} state={state} practice={prepareTopic} review={()=>go("errors")} visible={!!resource} initialSection={resource?.section} onClose={()=>setResource(null)} contextTopic={resource?.topic} contextQuestion={resource?.question} showTimer={view==="quiz"}/></Suspense>}
-        {view === "path" && <LearningPage initialSubject={pathSubject} state={state} catalogue={catalogue} prepare={setIntroTopic} errors={()=>go("errors")}/>}
+        {view === "path" && <LearningPage state={state} catalogue={catalogue} prepare={setIntroTopic} errors={()=>go("errors")}/>}
         {view === "books" && <BooksPage/>}
         {<div hidden={view !== "saved"}><nav className="context-actions" aria-label="Seus materiais"><Button variant="outline" onClick={()=>setNotebookContext("library")}><NotebookPen size={17}/>Cadernos</Button><Button variant="outline" onClick={()=>openResource("flashcard")}>Flashcards</Button><Button variant="outline" onClick={()=>openResource("summary")}>Resumos</Button><Button variant="outline" onClick={()=>openResource("map")}>Mapas mentais</Button></nav><SavedPage state={state} catalogue={catalogue} busy={busy} edit={setNoteId} toggle={favorite} practice={practiceSaved} resume={resume}/></div>}
         {view === "errors" && <><div className="context-actions"><Button variant="outline" onClick={()=>openResource("analysis")}>Analisar meus erros</Button></div><NotebookPage state={state} catalogue={catalogue} busy={busy} review={reviewErrors} resume={resume} study={()=>go("setup")}/></>}
-        {(view === "home" || view === "setup") && <HomePage state={state} catalogue={catalogue} go={go} resume={resume} openResource={openResource} topic={setIntroTopic} subject={id=>{setPathSubject(id);go("path");}}/>}
+        {(view === "home" || view === "setup") && <HomePage state={state} catalogue={catalogue} go={go} resume={resume} openResource={openResource} topic={setIntroTopic} subject={prepareSubject}/>}
         {view === "xp" && <XpPage state={state} go={go}/>}
         {view === "profile" && <ProfilePage state={state} name={name} setName={setName} busy={busy} go={go} save={async()=>{const result=await mutate({type:"profile",name:name.trim()}); if(result) toast.success("Perfil atualizado.");}}/>}
         {view === "settings" && <SettingsPage draft={appearanceDraft} setDraft={setAppearanceDraft} saved={savedAppearance} busy={busy} save={async()=>{const result=await mutate({type:"appearance",appearance:appearanceDraft}); if(result) toast.success("Aparência salva na sua conta.");}}/>}

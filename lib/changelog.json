@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.2.4",
+    "date": "2026-10-18",
+    "categories": {
+      "Correções": [
+        "Tocar numa matéria na página inicial abre diretamente seus assuntos para montar uma sessão de questões."
+      ]
+    }
+  },
+  {
     "version": "1.2.3",
     "date": "2026-10-18",
     "categories": {
