@@ -11,7 +11,7 @@
     "EREM_ACCESS_MODE": "accounts",
     "SUPABASE_URL": "https://lttdlxtbjyicmakobfah.supabase.co",
     "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_feDo3mNXTJpr2nPRy2tgqQ_S2R2iVcC",
-    "SUPABASE_CAPTCHA_ENABLED": "false",
+    "SUPABASE_CAPTCHA_ENABLED": "true",
     "ACCESS_TEAM_DOMAIN": "https://erickgabriell9777.cloudflareaccess.com",
     "ACCESS_AUD": "6f79bd9a3eed620235d21c481554468e58dae4a1fb17740d3aef55c620bd9e0b",
     "EREM_ALLOWED_EMAILS": "erickgabriell9777@gmail.com"
