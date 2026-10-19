@@ -8,7 +8,7 @@
   "preview_urls": false,
   "keep_vars": true,
   "vars": {
-    "EREM_ACCESS_MODE": "private",
+    "EREM_ACCESS_MODE": "accounts",
     "SUPABASE_URL": "https://lttdlxtbjyicmakobfah.supabase.co",
     "SUPABASE_PUBLISHABLE_KEY": "sb_publishable_feDo3mNXTJpr2nPRy2tgqQ_S2R2iVcC",
     "SUPABASE_CAPTCHA_ENABLED": "false",
