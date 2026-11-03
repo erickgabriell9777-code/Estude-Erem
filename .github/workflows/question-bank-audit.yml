@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   audit:
-    name: Validate question coverage and integrity
+    name: Validate study content and release metadata
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -29,3 +29,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Audit question bank
         run: pnpm audit:questions
+      - name: Validate study session behavior
+        run: pnpm run test:study
+      - name: Validate version and changelog
+        run: pnpm run version:check
