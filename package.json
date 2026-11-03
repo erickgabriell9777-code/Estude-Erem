@@ -19,7 +19,8 @@
     "test:runtime": "node --test scripts/cloudflare-runtime.test.mjs",
     "test:study": "node --experimental-strip-types --test scripts/mixed-study.test.mjs",
     "test:accounts": "node --test scripts/account-auth.test.mjs",
-    "audit:questions": "node scripts/audit-question-coverage.cjs"
+    "audit:questions": "node scripts/audit-question-coverage.cjs",
+    "audit:questions:strict": "node scripts/audit-question-coverage.cjs --strict-coverage"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
