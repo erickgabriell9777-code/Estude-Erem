@@ -36,7 +36,7 @@ Em “A aluna permaneceu tranquila”, o núcleo do predicado nominal é:|tranqu
 @portugues|1
 Qual frase emprega corretamente a crase?|Vou à biblioteca.|Vou à pé.|Escrevo à lápis.|Cheguei à Recife.|“Ir a” exige preposição e “a biblioteca” admite artigo feminino; a fusão resulta em “à”.
 Em “Entregou o trabalho a ela”, a crase é:|Inadequada antes de “ela”|Obrigatória antes de qualquer pronome|Facultativa porque “ela” é verbo|Obrigatória antes de sujeito|O pronome pessoal “ela” não admite artigo definido feminino.
-Complete: “A reunião começa ___ oito horas”.|às|a|à|aos|A indicação de horário determinado admite a fusão de a com as: às oito horas.
+Complete: “A reunião começa ___ oito horas”.|às|a|desde|pelos|A indicação de horário determinado admite a fusão de a com as: às oito horas.
 Por que “a prazo” não recebe crase?|“Prazo” é masculino e não há fusão com artigo feminino.|Toda locução proíbe crase.|A palavra tem só duas sílabas.|Não existe preposição na frase.|A crase em “à” exige a fusão de dois sons a; não há artigo feminino antes de “prazo”.
 Qual expressão tem crase como locução adverbial feminina?|à tarde|a pé|a cavalo|a prazo|“À tarde” é uma locução adverbial feminina de tempo.
 Complete: “Refiro-me ___ decisão da banca”.|à|há|as|ao|Referir-se exige preposição a; decisão vem com artigo a: à decisão.
@@ -63,7 +63,7 @@ Em dominância completa, o heterozigoto Aa expressa:|O fenótipo dominante|Sempr
 Dois alelos de um mesmo gene em um indivíduo diploide se separam durante:|A formação dos gametas|Toda síntese de proteína|A fotossíntese|A fecundação apenas|A segregação dos alelos na formação dos gametas fundamenta a primeira lei de Mendel.
 O conjunto de alelos de um indivíduo para um caráter é seu:|Genótipo|Fenótipo|Ecossistema|Cariótipo completo necessariamente|Genótipo descreve a constituição genética; fenótipo é a manifestação observável.
 Um indivíduo AA é classificado como:|Homozigoto|Heterozigoto|Hemizigoto obrigatoriamente|Triploide|Os dois alelos representados são iguais.
-No cruzamento AA × aa, todos os descendentes previstos têm genótipo:|Aa|AA|AAa|Aaa|Um genitor fornece somente A e o outro somente a.
+No cruzamento AA × aa, todos os descendentes previstos têm genótipo:|heterozigoto Aa|homozigoto dominante AA|homozigoto recessivo aa|genótipo A|Um genitor fornece somente A e o outro somente a.
 O ambiente pode influenciar o fenótipo?|Sim, a manifestação de muitos caracteres depende de genética e ambiente.|Não, nenhum caráter depende do ambiente.|Sim, mas elimina todos os genes.|Não, o fenótipo é sempre idêntico ao DNA.|Alimentação, temperatura e outros fatores podem influenciar a manifestação de características.
 @quimica|70
 Água e óleo em repouso constituem, em condições comuns, uma mistura:|Heterogênea com duas fases|Homogênea com uma fase|De dois elementos químicos puros|Sem qualquer fase|Os líquidos são pouco miscíveis e formam duas regiões visíveis.
