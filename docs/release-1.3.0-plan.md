@@ -23,12 +23,13 @@ O projeto já possui parte importante do escopo solicitado. Portanto, os itens a
 ## Ordem de implementação
 
 ### Etapa 1 — Qualidade e profundidade do estudo (prioridade máxima)
-- Auditar a cobertura real por matéria, assunto e dificuldade.
-- Identificar assuntos com poucas questões, questões redundantes, alternativas ambíguas e explicações insuficientes.
-- Definir meta de cobertura mínima por assunto e dificuldade; expandir primeiro os pontos fracos.
-- Melhorar filtros de prática e simulados para respeitar assunto, nível e quantidade disponíveis.
-- Validar gabaritos, unicidade, vínculo com assunto e fonte, e distribuição de dificuldade.
-- Criar testes automatizados de cobertura e qualidade para impedir regressões.
+- [x] Criar auditoria executável por matéria, assunto e nível: `pnpm audit:questions`.
+- [ ] Executar a auditoria e registrar os assuntos abaixo da meta de 40 questões.
+- [ ] Identificar assuntos com poucas questões, questões redundantes, alternativas ambíguas e explicações insuficientes.
+- [ ] Definir meta de cobertura mínima por assunto e dificuldade; expandir primeiro os pontos fracos.
+- [ ] Melhorar filtros de prática e simulados para respeitar assunto, nível e quantidade disponíveis.
+- [ ] Validar gabaritos, unicidade, vínculo com assunto e fonte, e distribuição de dificuldade.
+- [ ] Criar testes automatizados de cobertura e qualidade para impedir regressões.
 
 ### Etapa 2 — Experiência de prática
 - Revisar fluxo de preparação, resolução, correção e resultado.
@@ -71,7 +72,8 @@ O projeto já possui parte importante do escopo solicitado. Portanto, os itens a
 ## Registro de execução
 - [x] Escopo 1.3.0 aprovado.
 - [x] Auditoria inicial de arquitetura e funcionalidades existentes.
-- [ ] Auditoria quantitativa da cobertura do banco por assunto e dificuldade.
-- [ ] Implementação da Etapa 1.
+- [x] Ferramenta de auditoria de cobertura adicionada ao projeto e ao package script.
+- [ ] Auditoria quantitativa executada; pontos fracos identificados.
+- [ ] Implementação e validação da Etapa 1.
 - [ ] Implementação e validação das etapas seguintes.
 - [ ] Preparação e publicação da versão 1.3.0.
