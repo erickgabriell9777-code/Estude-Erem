@@ -17,6 +17,17 @@ test('short sessions include both selected subjects and redistribute exhausted g
  assert.equal(new Set(all).size,11);
  assert.deepEqual(createQuestionList({...settings,count:2},()=>.4,{},bank),['p0','m0']);
 });
+test('mixed sessions balance several selected topics from the same subject',()=>{
+ const topicBank=[
+  ...Array.from({length:6},(_,i)=>({id:`pt-a-${i}`,subject:'portugues',topic:'topic-01',level:'Fácil'})),
+  ...Array.from({length:6},(_,i)=>({id:`pt-b-${i}`,subject:'portugues',topic:'topic-02',level:'Fácil'})),
+ ];
+ const ids=createQuestionList({...settings,subjects:['portugues'],topics:['topic-01','topic-02'],count:4},()=>.4,{},topicBank);
+ assert.equal(ids.length,4);
+ assert.equal(ids.filter(id=>id.startsWith('pt-a')).length,2);
+ assert.equal(ids.filter(id=>id.startsWith('pt-b')).length,2);
+});
+
 test('mixed sessions honor topic filters, unseen/review mode and practice counts',()=>{
  assert.deepEqual(createQuestionList({...settings,subjects:['matematica'],topics:['topic-02'],count:2},()=>.4,{m0:1},bank),['m1','m2']);
  assert.deepEqual(createQuestionList({...settings,mode:'review',count:2},()=>.4,{p0:5,p1:1,m0:2},bank),['p1','m0']);
