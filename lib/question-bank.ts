@@ -22,7 +22,7 @@ type Extra = [number, string, string[], number, string];
 const extra: Extra[] = [
   [0,"Qual é o sujeito em “Chegaram cedo os estudantes”?",["Cedo","Os estudantes","Chegaram","Sujeito inexistente"],1,"Mesmo depois do verbo, “os estudantes” indica quem chegou."],
   [0,"Em “Há muitas dúvidas”, no sentido de existir, o sujeito é:",["Muitas dúvidas","Oculto","Inexistente","Há"],2,"O verbo haver com sentido de existir é impessoal: a oração não tem sujeito."],
-  [1,"Qual expressão está escrita corretamente?",["À pé","A pé","À estudar","À ele"],1,"“A pé” não recebe crase porque “pé” é uma palavra masculina."],
+  [1,"Qual expressão está escrita corretamente?",["De pé","A pé","À estudar","À ele"],1,"“A pé” não recebe crase porque “pé” é uma palavra masculina."],
   [1,"Qual frase apresenta uma crase corretamente marcada?",["Falei à uma amiga.","Começou à chover.","Referiu-se àquela situação.","Mandou à todos."],2,"A preposição exigida por “referir-se a” se combina com o a inicial de “aquela”."],
   [2,"Qual palavra pode introduzir uma ideia de concessão?",["Embora","Porque","Portanto","Para que"],0,"“Embora” apresenta uma circunstância que não impede a ação principal."],
   [2,"Em “Mesmo que chova, iremos”, qual relação aparece?",["Conclusão","Concessão","Comparação","Consequência"],1,"A possibilidade de chuva não impede o plano de ir: é uma relação concessiva."],
