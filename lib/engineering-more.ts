@@ -650,7 +650,7 @@ export const moreEngineeringQuestions:Question[] = [
       "8"
     ],
     "answer": 0,
-    "explanation": "z=3+2×1=5.",
+    "explanation": "A coordenada z é dada pela terceira componente: z=3+t·1. Substituindo t=2, obtemos z=3+2=5.",
     "level": "Médio",
     "xp": 10
   },
@@ -666,7 +666,7 @@ export const moreEngineeringQuestions:Question[] = [
       "9"
     ],
     "answer": 1,
-    "explanation": "z=3+2×2=7.",
+    "explanation": "A terceira componente da reta é z=3+2t. Para t=2, z=3+2·2=7.",
     "level": "Médio",
     "xp": 10
   },
@@ -682,7 +682,7 @@ export const moreEngineeringQuestions:Question[] = [
       "10"
     ],
     "answer": 2,
-    "explanation": "z=3+2×3=9.",
+    "explanation": "A terceira componente da reta é z=3+3t. Substituindo t=2, z=3+3·2=9.",
     "level": "Médio",
     "xp": 10
   },
@@ -698,7 +698,7 @@ export const moreEngineeringQuestions:Question[] = [
       "11"
     ],
     "answer": 3,
-    "explanation": "z=3+2×4=11.",
+    "explanation": "A terceira componente da reta é z=3+4t. Para t=2, z=3+4·2=11.",
     "level": "Médio",
     "xp": 10
   },
@@ -714,7 +714,7 @@ export const moreEngineeringQuestions:Question[] = [
       "16"
     ],
     "answer": 0,
-    "explanation": "z=3+2×5=13.",
+    "explanation": "A terceira componente da reta é z=3+5t. Substituindo t=2, z=3+5·2=13.",
     "level": "Médio",
     "xp": 10
   },
@@ -730,7 +730,7 @@ export const moreEngineeringQuestions:Question[] = [
       "17"
     ],
     "answer": 1,
-    "explanation": "z=3+2×6=15.",
+    "explanation": "A terceira componente da reta é z=3+6t. Para t=2, z=3+6·2=15.",
     "level": "Médio",
     "xp": 10
   },
