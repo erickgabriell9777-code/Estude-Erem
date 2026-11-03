@@ -3,9 +3,7 @@
   "version": "1.2.9",
   "appBuild": 14,
   "private": true,
-  "engines": {
-    "node": ">=22.13.0"
-  },
+  "engines": { "node": ">=22.13.0" },
   "scripts": {
     "install:ci": "bash scripts/install-pnpm.sh",
     "dev": "node scripts/run-framework.mjs dev",
@@ -20,7 +18,8 @@
     "test:access": "node --experimental-strip-types --test scripts/access-auth.test.mjs",
     "test:runtime": "node --test scripts/cloudflare-runtime.test.mjs",
     "test:study": "node --experimental-strip-types --test scripts/mixed-study.test.mjs",
-    "test:accounts": "node --test scripts/account-auth.test.mjs"
+    "test:accounts": "node --test scripts/account-auth.test.mjs",
+    "audit:questions": "node scripts/audit-question-coverage.cjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -74,9 +73,7 @@
   },
   "type": "module",
   "overrides": {
-    "miniflare": {
-      "sharp": "0.35.4"
-    }
+    "miniflare": { "sharp": "0.35.4" }
   },
   "packageManager": "pnpm@11.25.0"
 }
