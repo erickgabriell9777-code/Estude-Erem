@@ -24,6 +24,7 @@ O projeto já possui parte importante do escopo solicitado. Portanto, os itens a
 
 ### Etapa 1 — Qualidade e profundidade do estudo (prioridade máxima)
 - [x] Criar auditoria executável por matéria, assunto e nível: `pnpm audit:questions`.
+- [x] Criar modo estrito para bloquear assuntos abaixo da meta: `pnpm audit:questions:strict`.
 - [ ] Executar a auditoria e registrar os assuntos abaixo da meta de 40 questões.
 - [ ] Identificar assuntos com poucas questões, questões redundantes, alternativas ambíguas e explicações insuficientes.
 - [ ] Definir meta de cobertura mínima por assunto e dificuldade; expandir primeiro os pontos fracos.
