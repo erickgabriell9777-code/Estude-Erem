@@ -76,8 +76,8 @@ export const expansionBatch3Questions: Question[] = groups.flatMap(group => grou
  topic:group.topic,
  level:levels[index%3],
  prompt:row[0],
- options:row[1],
- answer:row[2],
+ options:row[1].map((_,optionIndex)=>row[1][(optionIndex + (index*3)%4)%4]),
+ answer:(4 - (index*3)%4)%4,
  explanation:row[3],
  sourceId:group.sourceId,
  xp:10
