@@ -1,5 +1,6 @@
 'use client';
 import {useEffect,useState,type FormEvent} from 'react';
+import Link from 'next/link';
 import {ArrowRight,ArrowLeft,Mail,Phone,BookOpen,LockKeyhole,Loader2} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
@@ -37,7 +38,7 @@ export function LoginForm({options}:{options:LoginOptions}){
  const titles={signin:'Bem-vindo de volta.',signup:'Seu estudo começa aqui.',recover:'Recuperar acesso',phone:'Entrar pelo telefone',verify:'Confira seu celular',reset:'Escolha uma nova senha'};
  const labels={signin:'Entrar',signup:'Criar conta',recover:'Enviar instruções',phone:'Receber código',verify:'Confirmar código',reset:'Salvar nova senha'};
  const available=options.email||options.phone||options.google||options.facebook;
- return <main className="auth-screen"><section className="auth-intro" aria-label="Estude Erem"><a className="auth-brand" href="/">e<span>estude <strong>erem</strong></span></a><h1>Aprenda no seu ritmo.</h1><p>Suas matérias, livros, questões e cadernos num só lugar.</p><div className="auth-intro-note"><BookOpen size={22}/><span>Continue seus estudos em qualquer aparelho com a sua conta.</span></div></section><section className="auth-card" aria-labelledby="auth-heading"><div className="auth-card-icon"><LockKeyhole size={23}/></div><h2 id="auth-heading">{titles[mode]}</h2><p className="auth-description">{mode==='signup'?'Crie sua conta para guardar seu progresso.':mode==='verify'?`Digite o código enviado para ${phone}.`:mode==='recover'?'Vamos enviar as instruções para o seu e-mail.':'Entre na sua conta para continuar.'}</p>
+ return <main className="auth-screen"><section className="auth-intro" aria-label="Estude Erem"><Link className="auth-brand" href="/">e<span>estude <strong>erem</strong></span></Link><h1>Aprenda no seu ritmo.</h1><p>Suas matérias, livros, questões e cadernos num só lugar.</p><div className="auth-intro-note"><BookOpen size={22}/><span>Continue seus estudos em qualquer aparelho com a sua conta.</span></div></section><section className="auth-card" aria-labelledby="auth-heading"><div className="auth-card-icon"><LockKeyhole size={23}/></div><h2 id="auth-heading">{titles[mode]}</h2><p className="auth-description">{mode==='signup'?'Crie sua conta para guardar seu progresso.':mode==='verify'?`Digite o código enviado para ${phone}.`:mode==='recover'?'Vamos enviar as instruções para o seu e-mail.':'Entre na sua conta para continuar.'}</p>
  {!options.ready||!available?<p className="auth-message" role="status">As opções de entrada estão sendo preparadas. Tente novamente em instantes.</p>:<>
  <HumanCheck key={challenge} siteKey={options.siteKey} onToken={setCaptchaToken}/>
  {(mode==='signin'||mode==='signup')&&<>
