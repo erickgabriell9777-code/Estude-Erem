@@ -1,5 +1,17 @@
 [
   {
+    "version": "1.4.1",
+    "date": "2026-11-04",
+    "categories": {
+      "Correções": [
+        "Ao tocar em uma alternativa no caderno, a resposta é registrada automaticamente e o caderno avança para a próxima questão não respondida."
+      ],
+      "Melhorias": [
+        "Ao responder a última questão da sessão pelo caderno, o aplicativo abre automaticamente a tela de resultados."
+      ]
+    }
+  },
+  {
     "version": "1.4.0",
     "date": "2026-11-03",
     "categories": {
