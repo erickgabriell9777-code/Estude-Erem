@@ -32,7 +32,7 @@ export function recognizeShape(input:Point[],bounds={width:1000,height:700}):Rec
  // Split a closed contour opposite its start so simplification is independent of closure.
  let opposite=1;for(let i=2;i<input.length;i++)if(distance(first,input[i])>distance(first,input[opposite]))opposite=i;
  const closed=[...input,first];
- let corners=[...simplify(closed.slice(0,opposite+1),diag*.065).slice(0,-1),...simplify(closed.slice(opposite),diag*.065).slice(0,-1)];
+ const corners=[...simplify(closed.slice(0,opposite+1),diag*.065).slice(0,-1),...simplify(closed.slice(opposite),diag*.065).slice(0,-1)];
  // Remove a redundant starting point in the middle of a side.
  let changed=true;while(changed&&corners.length>3){changed=false;for(let i=0;i<corners.length;i++)if(segmentDistance(corners[i],corners[(i+corners.length-1)%corners.length],corners[(i+1)%corners.length])<diag*.07){corners.splice(i,1);changed=true;break;}}
  const area=Math.abs(corners.reduce((sum,p,i)=>{const q=corners[(i+1)%corners.length];return sum+p[0]*q[1]-q[0]*p[1]},0))/2;
