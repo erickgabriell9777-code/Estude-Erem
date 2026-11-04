@@ -152,6 +152,7 @@ console.log('='.repeat(48));
 console.log(`Matérias: ${subjects.length} | Assuntos: ${topics.length} | Questões: ${questions.length}`);
 console.log(`Meta de cobertura: ${target} questões por assunto | Média: ${average.toFixed(1)} | Mínimo: ${minimum} | Máximo: ${maximum}`);
 console.log(`Questões com enunciado repetido: ${duplicateWarnings.length}`);
+for (const item of duplicateWarnings) console.log(`- ${item}`);
 console.log('\nCOBERTURA POR MATÉRIA');
 for (const { subject, total, topics: topicCount, belowTarget, levels: distribution } of subjectStats.values()) {
   console.log(
