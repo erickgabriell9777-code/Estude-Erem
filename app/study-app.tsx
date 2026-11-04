@@ -172,12 +172,24 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
   };
   const answerFromNotebook = async (questionId:string, selectedAnswer:number):Promise<boolean> => {
     const activeSession=latest.current.state.session;
-    if(!activeSession||activeSession.completedAt||!activeSession.questions.includes(questionId)) {
-      toast.error("Esta questão não pertence a uma sessão ativa.");
+    if(!activeSession||activeSession.completedAt||!activeSession.questions.includes(questionId)||Object.hasOwn(activeSession.answers,questionId)) {
+      toast.error("Esta questão não está disponível para resposta.");
       return false;
     }
     const result=await mutate({type:"answer",sessionId:activeSession.id,questionId,answer:selectedAnswer});
-    return !!result;
+    const updatedSession=result?.state.session;
+    if(!result||!updatedSession)return false;
+    const nextIndex=updatedSession.questions.findIndex(id=>!Object.hasOwn(updatedSession.answers,id));
+    if(nextIndex>=0) {
+      const nextId=updatedSession.questions[nextIndex];
+      setQuestionIndex(nextIndex);
+      setNotebookContext(nextId);
+    } else {
+      setNotebookContext(null);
+      setView("result");
+      toast.success("Você concluiu todas as questões!");
+    }
+    return true;
   };
   const next = () => { if(!session) return; if(questionIndex === session.questions.length - 1) { setView("result"); } else { setQuestionIndex(i => i + 1); setAnswer(""); } window.scrollTo(0, 0); };
 
