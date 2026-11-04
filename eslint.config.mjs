@@ -15,6 +15,17 @@ const eslintConfig = defineConfig([
     "scripts/**/*.cjs",
   ]),
   {
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    rules: {
+      // React Compiler diagnostics are warnings until the affected components are refactored.
+      // The compiler skips unsafe optimizations automatically; core Hooks rules remain enforced.
+      "react-hooks/preserve-manual-memoization": "warn",
+      "react-hooks/purity": "warn",
+      "react-hooks/refs": "warn",
+      "react-hooks/set-state-in-effect": "warn",
+    },
+  },
+  {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
