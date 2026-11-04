@@ -1,4 +1,5 @@
 import {conceptQuestions} from "./concept-review";
+import { expansionBatch1Questions } from "./question-expansion-batch-1";
 import {readingUpdateQuestions} from "./reading-update";
 import {practiceQuestions} from "./practice-expansion";
 import {coverageBatchQuestions} from "./coverage-batch";
@@ -137,7 +138,7 @@ const additions: Question[] = extra.map(([index, prompt, options, answer, explan
   return { ...base, id: `${base.id}-v${variant + 1}`, level: levels[variant], prompt, options, answer, explanation };
 });
 const rank = { Fácil: 0, Médio: 1, Difícil: 2 };
-export const questions: Question[] = [...baseQuestions, ...additions, ...expandedQuestions, ...researchedQuestions, ...calculusQuestions, ...growthQuestions, ...notebookQuestions, ...bookQuestions, ...curriculumQuestions, ...coreQuestions, ...engineeringQuestions, ...moreEngineeringQuestions, ...longCaseQuestions, ...readingBatchQuestions, ...readingBatch2Questions, ...coverageBatchQuestions, ...portugueseDepthQuestions, ...practiceQuestions, ...readingUpdateQuestions, ...conceptQuestions].sort((a, b) => Number(a.topic.slice(6)) - Number(b.topic.slice(6)) || rank[a.level] - rank[b.level]);
+export const questions: Question[] = [...baseQuestions, ...additions, ...expandedQuestions, ...researchedQuestions, ...calculusQuestions, ...growthQuestions, ...notebookQuestions, ...bookQuestions, ...curriculumQuestions, ...coreQuestions, ...engineeringQuestions, ...moreEngineeringQuestions, ...longCaseQuestions, ...readingBatchQuestions, ...readingBatch2Questions, ...coverageBatchQuestions, ...portugueseDepthQuestions, ...practiceQuestions, ...readingUpdateQuestions, ...conceptQuestions, ...expansionBatch1Questions].sort((a, b) => Number(a.topic.slice(6)) - Number(b.topic.slice(6)) || rank[a.level] - rank[b.level]);
 export {defaultSettings, type Settings} from "./question-selection";
 import {defaultSettings,eligibleQuestions as selectEligible,createQuestionList as selectQuestionList,type Settings} from "./question-selection";
 export function eligibleQuestions(settings:Settings,bank:Question[]=questions,seenCounts?:Record<string,number>){return selectEligible(settings,bank,seenCounts);}
