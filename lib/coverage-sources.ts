@@ -6,4 +6,8 @@ export const coverageSources = [
 {id:'exp3-sociology',title:'Introduction to Sociology 3e — Culture',publisher:'OpenStax',url:'https://openstax.org/details/books/introduction-sociology-3e',accessedAt:'2026-11-04'},
 {id:'exp3-philosophy',title:'Socrates',publisher:'Stanford Encyclopedia of Philosophy',url:'https://plato.stanford.edu/entries/socrates/',accessedAt:'2026-11-04'},
 {id:'exp3-seasons',title:'What Causes the Seasons?',publisher:'NASA Space Place',url:'https://spaceplace.nasa.gov/seasons/en/',accessedAt:'2026-11-04'}
+,
+{id:'exp4-spanish',title:'False friends in Spanish — vocabulary in context',publisher:'Instituto Cervantes / recursos didácticos',url:'https://cvc.cervantes.es/',accessedAt:'2026-11-04'},
+{id:'exp4-literature',title:'Glossary of Literary Terms',publisher:'Poetry Foundation',url:'https://www.poetryfoundation.org/education/glossary',accessedAt:'2026-11-04'},
+{id:'exp4-spreadsheets',title:'Calc Guide — Functions and formulas',publisher:'LibreOffice Documentation',url:'https://documentation.libreoffice.org/en/english-documentation/',accessedAt:'2026-11-04'}
 ];
