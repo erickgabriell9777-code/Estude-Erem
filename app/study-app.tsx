@@ -21,6 +21,7 @@ import type { Catalogue } from "@/lib/catalogue-types";
 import { defaultSettings, eligibleQuestions, type Settings } from "@/lib/question-selection";
 import type {Action,StudyState} from "@/lib/study-model";
 import {initialState} from "@/lib/initial-study-state";
+import UpdateAnnouncement from "./update-announcement";
 
 import { Textarea } from "@/components/ui/textarea";
 import { BooksPage, BookReferenceHint } from "./books-page";
@@ -169,6 +170,15 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
     if(!session || !current || answer === "") return;
     await mutate({ type: "answer", sessionId: session.id, questionId: current.id, answer: Number(answer) });
   };
+  const answerFromNotebook = async (questionId:string, selectedAnswer:number):Promise<boolean> => {
+    const activeSession=latest.current.state.session;
+    if(!activeSession||activeSession.completedAt||!activeSession.questions.includes(questionId)) {
+      toast.error("Esta questão não pertence a uma sessão ativa.");
+      return false;
+    }
+    const result=await mutate({type:"answer",sessionId:activeSession.id,questionId,answer:selectedAnswer});
+    return !!result;
+  };
   const next = () => { if(!session) return; if(questionIndex === session.questions.length - 1) { setView("result"); } else { setQuestionIndex(i => i + 1); setAnswer(""); } window.scrollTo(0, 0); };
 
   useEffect(() => {
@@ -191,7 +201,7 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
     return () => lifecycle.abort();
   }, [catalogue]);
 
-  return <SidebarProvider><Toaster position="top-center" richColors theme={appearance.mode === "light" ? "light" : "dark"} />
+  return <SidebarProvider><Toaster position="top-center" richColors theme={appearance.mode === "light" ? "light" : "dark"} /><UpdateAnnouncement enabled={!loading&&!error}/>
     <Sidebar collapsible="none" className="app-sidebar">
       <SidebarHeader className="brand"><span className="brand-mark">e<span /></span><span>estude<span className="brand-erem">erem</span></span></SidebarHeader>
       <SidebarContent className="sidebar-body"><SidebarMenu>
@@ -242,7 +252,7 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
     </div>
     <Dialog open={menuOpen} onOpenChange={setMenuOpen}><DialogContent><DialogHeader><DialogTitle>Seu espaço de estudo</DialogTitle><DialogDescription>Acesse suas matérias, materiais e progresso.</DialogDescription></DialogHeader><nav className="full-menu" aria-label="Todas as páginas">{navigation.map(item=><Button key={item.id} variant={view===item.id?"default":"outline"} onClick={()=>{setMenuOpen(false);go(item.id);}}><item.icon size={18}/>{item.label}</Button>)}</nav></DialogContent></Dialog>
     {introTopic&&<TopicIntroduction id={introTopic} catalogue={catalogue} onClose={()=>setIntroTopic(null)} onPractice={()=>{const id=introTopic;setIntroTopic(null);prepareTopic(id);}}/>}
-    {notebookContext&&<Suspense fallback={<div role="status">Abrindo caderno…</div>}><DrawingNotebookWorkspace catalogue={catalogue} question={notebookContext==='library'?undefined:questions.find(q=>q.id===notebookContext)} confirmedAnswers={session?.answers} onClose={()=>setNotebookContext(null)}/></Suspense>}
+    {notebookContext&&<Suspense fallback={<div role="status">Abrindo caderno…</div>}><DrawingNotebookWorkspace catalogue={catalogue} question={notebookContext==='library'?undefined:questions.find(q=>q.id===notebookContext)} confirmedAnswers={session?.answers} canAnswerQuestion={questionId=>!!session&&!session.completedAt&&session.questions.includes(questionId)&&!Object.hasOwn(session.answers,questionId)} onAnswerQuestion={answerFromNotebook} onClose={()=>setNotebookContext(null)}/></Suspense>}
     <Dialog open={!!noteId} onOpenChange={open=>!open&&setNoteId(null)}><DialogContent><DialogHeader><DialogTitle>Minha anotação</DialogTitle><DialogDescription>{questions.find(q=>q.id===noteId)?.prompt}</DialogDescription></DialogHeader>{noteId&&<form className="note-editor" onSubmit={async e=>{e.preventDefault();const id=noteId;const note=noteDrafts[id]??state.savedQuestions?.[id]?.note??"";const result=await mutate({type:"save_question",questionId:id,note});if(result){setNoteDrafts(d=>{const copy={...d};delete copy[id];return copy;});setNoteId(null);toast.success(note.trim()?"Anotação salva.":"Anotação removida.");}}}><label htmlFor="question-note">O que você quer lembrar?</label><Textarea id="question-note" maxLength={2000} rows={7} value={noteDrafts[noteId]??state.savedQuestions?.[noteId]?.note??""} onChange={e=>setNoteDrafts(d=>({...d,[noteId]:e.target.value}))} placeholder="Escreva sua dúvida, o raciocínio ou uma observação..."/><p className="muted-text">{(noteDrafts[noteId]??state.savedQuestions?.[noteId]?.note??"").length}/2000 caracteres · Salve para manter na sua conta.</p><Button type="submit" disabled={busy||(noteDrafts[noteId]??state.savedQuestions?.[noteId]?.note??"")===(state.savedQuestions?.[noteId]?.note??"")}>{busy?"Salvando…":"Salvar anotação"}</Button></form>}</DialogContent></Dialog>
     <Dialog open={!!topicOpen} onOpenChange={open => !open && setTopicOpen(null)}><DialogContent showCloseButton={false}><button className="dialog-x icon-button" aria-label="Fechar assunto" onClick={() => setTopicOpen(null)}><X size={18} /></button><DialogHeader><DialogTitle>{topicInfo?.name}</DialogTitle><DialogDescription>{topicInfo && subjectName(topicInfo.subject)}</DialogDescription></DialogHeader><p className="topic-summary">{topicInfo?.summary}</p>{sources.filter(source => questions.some(q => q.topic === topicInfo?.id && q.sourceId === source.id)).map(source => <p key={source.id} className="muted-text">Questões originais · Referência: <a className="underline" href={source.url} target="_blank" rel="noreferrer">{source.publisher} — {source.title}</a></p>)}<p className="muted-text">Este assunto tem {questions.filter(q => q.topic === topicInfo?.id).length} perguntas, distribuídas entre fácil, média e difícil.</p><div className="tool-actions"><Button onClick={()=>{const id=topicOpen;setTopicOpen(null);if(id)openResource("guide",id)}}>Estudar passo a passo</Button><Button variant="outline" onClick={() => setTopicOpen(null)}>Fechar</Button></div></DialogContent></Dialog>
     <AlertDialog open={discardOpen} onOpenChange={open=>{if(!busy){setDiscardOpen(open);if(!open)pendingTransition.current=null;}}}><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>{pendingTransition.current?"Antes de trocar de atividade":"Encerrar esta sessão?"}</AlertDialogTitle><AlertDialogDescription>Escolha continuar na atividade atual ou encerrá-la para seguir. As respostas confirmadas ficam nas suas estatísticas; a sessão encerrada não recebe resultado final.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel disabled={busy} onClick={()=>{pendingTransition.current=null;resume();}}>Continuar nesta atividade</AlertDialogCancel><AlertDialogAction onClick={async e => { e.preventDefault(); const result = await mutate({ type: "discard" }); if(result) { const proceed=pendingTransition.current;pendingTransition.current=null;setDiscardOpen(false);setAnswer("");if(proceed)proceed();else setView("home"); } }} disabled={busy}>{busy?"Encerrando…":pendingTransition.current?"Encerrar e continuar":"Encerrar sessão"}</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog>
