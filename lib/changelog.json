@@ -1,5 +1,18 @@
 [
   {
+    "version": "1.3.0",
+    "date": "2026-11-03",
+    "categories": {
+      "Correções": [
+        "Correção de alternativas duplicadas no banco de questões e validação de integridade do conteúdo.",
+        "Ajustes na validação automatizada e preparação da publicação no Cloudflare Workers."
+      ],
+      "Melhorias": [
+        "Expansão e revisão das questões e explicações em diferentes matérias."
+      ]
+    }
+  },
+  {
     "version": "1.2.6",
     "date": "2026-10-18",
     "categories": {
