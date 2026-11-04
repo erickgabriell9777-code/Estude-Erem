@@ -10,4 +10,8 @@ export const coverageSources = [
 {id:'exp4-spanish',title:'False friends in Spanish — vocabulary in context',publisher:'Instituto Cervantes / recursos didácticos',url:'https://cvc.cervantes.es/',accessedAt:'2026-11-04'},
 {id:'exp4-literature',title:'Glossary of Literary Terms',publisher:'Poetry Foundation',url:'https://www.poetryfoundation.org/education/glossary',accessedAt:'2026-11-04'},
 {id:'exp4-spreadsheets',title:'Calc Guide — Functions and formulas',publisher:'LibreOffice Documentation',url:'https://documentation.libreoffice.org/en/english-documentation/',accessedAt:'2026-11-04'}
+,
+{id:'exp5-ethics',title:'Introduction to Philosophy — Ethics and moral reasoning',publisher:'OpenStax',url:'https://openstax.org/details/books/introduction-philosophy',accessedAt:'2026-11-04'},
+{id:'exp5-memory',title:'Computer Memory and Storage',publisher:'OpenStax / Computing concepts',url:'https://openstax.org/',accessedAt:'2026-11-04'},
+{id:'exp5-interest',title:'Mathematics of Finance — Compound Interest',publisher:'OpenStax / Contemporary Mathematics',url:'https://openstax.org/details/books/contemporary-mathematics',accessedAt:'2026-11-04'}
 ];
