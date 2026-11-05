@@ -8,7 +8,7 @@ type AnswerRow={user_id:string;choice:number;correct:number};
 function db(){if(!env.DB)throw new Error("Database unavailable");return env.DB;}
 function json(body:unknown,status=200){return Response.json(body,{status,headers:{"Cache-Control":"private, no-store","Vary":"Cookie"}});}
 async function displayName(userId:string,fallback:string){try{const row=await db().prepare("SELECT state FROM study_spaces WHERE id=?").bind(userId).first<{state:string}>();if(row){const state=JSON.parse(row.state) as {name?:unknown};if(typeof state.name==="string"&&state.name.trim())return state.name.trim().slice(0,40);}}catch{}return fallback&&fallback!=="Estudante"&&!fallback.includes("@")?fallback:"Estudante";}
-async function roomFor(code:string){return db().prepare("SELECT code,host_id,guest_id,host_name,guest_name,status,questions,current_index,seconds_per_question,question_started_at,theme_id FROM duel_rooms WHERE code=?").bind(code).first<RoomRow>();}
+async function roomFor(code:string){return db().prepare("SELECT code,host_id,guest_id,host_name,guest_name,status,questions,current_index,seconds_per_question,question_started_at,theme_id,phase FROM duel_rooms WHERE code=?").bind(code).first<RoomRow>();}
 async function advanceRoom(room:RoomRow){
  if(room.status!=="active"||!room.question_started_at)return room;
  const started=Date.parse(room.question_started_at),elapsed=Date.now()-started;
@@ -47,7 +47,7 @@ export async function GET(request:Request){
   }catch(error){console.error("Duel history failed",error);return json({error:"Não foi possível carregar o histórico."},503);}
  }
  const code=(url.searchParams.get("code")??"").toUpperCase();if(!/^[A-Z0-9]{6}$/.test(code))return json({error:"Código de duelo inválido."},400);
- try{const room=await roomFor(code);if(!room)return json({error:"Duelo não encontrado."},404);if(room.host_id!==user.userId&&room.guest_id!==user.userId)return json({error:"Você não participa deste duelo."},403);room=await advanceRoom(room);return json(await present(room,user.userId,await loadCatalogue(db())));}
+ try{let room=await roomFor(code);if(!room)return json({error:"Duelo não encontrado."},404);if(room.host_id!==user.userId&&room.guest_id!==user.userId)return json({error:"Você não participa deste duelo."},403);room=await advanceRoom(room);return json(await present(room,user.userId,await loadCatalogue(db())));}
  catch(error){console.error("Duel load failed",error);return json({error:"Não foi possível carregar o duelo."},503);}
 }
 export async function POST(request:Request){
