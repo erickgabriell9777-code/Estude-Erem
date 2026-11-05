@@ -27,6 +27,7 @@ const actionSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("profile"), name: z.string().trim().min(1).max(40) }).strict(),
   z.object({ type: z.literal("start"), settings: settingsSchema }).strict(),
   z.object({ type: z.literal("answer"), sessionId: z.string().uuid(), questionId: z.string().max(100), answer: z.number().int().min(0).max(3) }).strict(),
+  z.object({type:z.literal("draft_selection"),subjects:z.array(z.string().refine(id=>subjectIds.has(id))).max(subjects.length),topics:z.array(z.string().refine(id=>topicIds.has(id))).max(topics.length)}).strict().refine(s=>new Set(s.subjects).size===s.subjects.length&&new Set(s.topics).size===s.topics.length&&s.topics.every(id=>s.subjects.includes(topics.find(t=>t.id===id)!.subject)),"Seleção de matérias inválida."),
   z.object({ type: z.literal("discard") }).strict(),
 ]);
 return actionSchema;
@@ -77,6 +78,7 @@ export function reduceStudy(input: StudyState, raw: unknown, now = new Date(), c
   }
   if(action.type === "appearance") { s.appearance = action.appearance; return s; }
   if(action.type === "profile") { s.name = action.name; return s; }
+  if(action.type === "draft_selection") { s.lastSettings.subjects = action.subjects; s.lastSettings.topics = action.topics; return s; }
   if(action.type === "discard") { s.session = null; return s; }
   if(action.type === "review_errors") {
     if(s.session && !s.session.completedAt) throw new Error("Continue ou encerre a sessão atual antes de revisar os erros.");
