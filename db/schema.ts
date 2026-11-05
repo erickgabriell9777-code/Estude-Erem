@@ -68,10 +68,15 @@ export const authIdentityLinks=sqliteTable('auth_identity_links',{
 export const duelRooms = sqliteTable("duel_rooms", {
  code: text("code").primaryKey(),
  hostId: text("host_id").notNull(),
+ hostName: text("host_name").notNull().default("Jogador 1"),
  guestId: text("guest_id"),
+ guestName: text("guest_name"),
  status: text("status").notNull(),
  questions: text("questions").notNull(),
  currentIndex: integer("current_index").notNull().default(0),
+ secondsPerQuestion: integer("seconds_per_question").notNull().default(20),
+ questionStartedAt: text("question_started_at"),
+ themeId: text("theme_id"),
  createdAt: text("created_at").notNull(),
  updatedAt: text("updated_at").notNull(),
 });
