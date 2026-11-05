@@ -43,7 +43,7 @@ const sourceModules = [
 ];
 const sources = sourceModules.flatMap(([file, key]) => require(file)[key] ?? []);
 const sourceIds = new Set(sources.map(source => source.id));
-const target = Number(process.env.EREM_QUESTION_TARGET ?? 40);
+const target = Number(process.env.EREM_QUESTION_TARGET ?? 80);
 if (!Number.isInteger(target) || target < 1) throw new Error('EREM_QUESTION_TARGET deve ser um inteiro positivo.');
 
 const subjectById = new Map(subjects.map(subject => [subject.id, subject]));
