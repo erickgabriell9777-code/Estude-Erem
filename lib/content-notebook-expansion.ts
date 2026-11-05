@@ -139,7 +139,7 @@ Qual é a concentração molar de 0,5 mol em 2 L de solução?|0,25 mol/L|1 mol/
 Diluir 100 mL de solução 2 mol/L até 400 mL produz concentração de:|0,5 mol/L|8 mol/L|2 mol/L|4 mol/L|C₁V₁ = C₂V₂; C₂ = 2 × 100/400 = 0,5.
 Misturam-se 1 L de solução 2 mol/L e 1 L de solução 4 mol/L do mesmo soluto, sem reação e com volumes aditivos. A concentração final é:|3 mol/L|6 mol/L|2 mol/L|8 mol/L|Há 2 + 4 = 6 mol em 2 L: 3 mol/L.
 @176|quimica|Cinética química e catalisadores|Velocidade de reação depende de condições e do mecanismo. Catalisadores oferecem um caminho com menor energia de ativação.
-A cinética química estuda principalmente:|Velocidades de reações|Só a cor dos elementos|Apenas massas de planetas|Somente a forma dos recipientes|Ela investiga como e quão rapidamente as transformações ocorrem.
+Qual é o foco central da cinética química?|Velocidades de reações|Só a cor dos elementos|Apenas massas de planetas|Somente a forma dos recipientes|Ela investiga como e quão rapidamente as transformações ocorrem.
 Um catalisador participa do mecanismo e ao final do ciclo é:|Regenerado|Sempre consumido integralmente|Transformado obrigatoriamente em gás|Incapaz de participar de etapas|Ele pode participar de etapas intermediárias, mas é regenerado no ciclo catalítico.
 Por que pulverizar um sólido pode acelerar sua reação com uma solução?|Aumenta a área de contato exposta|Altera obrigatoriamente seu elemento químico|Elimina qualquer colisão|Reduz a superfície total|Mais superfície disponível pode aumentar as interações entre reagentes.
 Aumentar a temperatura geralmente acelera uma reação porque:|Mais partículas conseguem superar a barreira de ativação|Todas as partículas deixam de se mover|A energia de ativação sempre vira zero|A matéria perde seus átomos|A distribuição de energias muda e mais colisões podem ser eficazes.
@@ -230,7 +230,7 @@ Qual condição básica permite a busca binária usual numa lista?|A lista estar
 Acessar o índice 7 numa lista de tamanho 4, indexada desde zero, é:|Acesso fora dos limites|Acesso ao último elemento|Sempre acesso ao primeiro|Uma forma de ordenar|Os índices válidos são 0, 1, 2 e 3; o comportamento do erro depende da linguagem.
 No pior caso, procurar um elemento ausente por busca linear em n elementos exige:|Examinar n elementos|Examinar sempre um elemento|Examinar zero elementos|Examinar n² elementos obrigatoriamente|Sem encontrar o alvo, é preciso percorrer toda a lista.
 @189|logica|Equivalências e leis de De Morgan|Construa negações de proposições compostas. Negar uma conjunção troca e por ou; negar uma disjunção troca ou por e.
-A negação de “p e q” é equivalente a:|Não p ou não q|Não p e não q|p ou q|p e não q|Para a conjunção falhar, pelo menos uma das proposições deve ser falsa.
+Como se expressa a negação da conjunção entre p e q?|Não p ou não q|Não p e não q|p ou q|p e não q|Para a conjunção falhar, pelo menos uma das proposições deve ser falsa.
 A negação de “p ou q”, usando ou inclusivo, é:|Não p e não q|Não p ou não q|p e q|p ou não q|A disjunção só é falsa quando as duas proposições são falsas.
 Negar “Lia leu e Caio escreveu” resulta em:|Lia não leu ou Caio não escreveu|Lia não leu e Caio não escreveu|Lia leu ou Caio escreveu|Lia leu e Caio não escreveu|Basta que pelo menos uma das duas ações não tenha ocorrido para negar a conjunção.
 A dupla negação “não é verdade que não p” equivale a:|p|Não p|p e não p|Sempre falso|Na lógica clássica, negar duas vezes recupera o valor da proposição.
