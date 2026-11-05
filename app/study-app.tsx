@@ -130,8 +130,8 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
   const confirmed = !!session && !!current && Object.hasOwn(session.answers, current.id);
   const correctCount = session ? session.questions.filter(id => Object.hasOwn(session.answers, id) && session.answers[id] === questions.find(q => q.id === id)?.answer).length : 0;
   const topicInfo = topics.find(t => t.id === topicOpen);
-  const toggleSubject = (id: string, checked: boolean) => setSettings(s => ({ ...s, subjects: checked ? [...new Set([...s.subjects, id])] : s.subjects.filter(x => x !== id), topics: checked ? [...new Set([...s.topics, ...topics.filter(t => t.subject === id).map(t => t.id)])] : s.topics.filter(x => topics.find(t => t.id === x)?.subject !== id) }));
-  const toggleTopic = (id: string, checked: boolean) => setSettings(s => ({ ...s, topics: checked ? [...s.topics, id] : s.topics.filter(x => x !== id) }));
+  const toggleSubject = (id: string, checked: boolean) => { const next = { ...settings, subjects: checked ? [...new Set([...settings.subjects, id])] : settings.subjects.filter(x => x !== id), topics: checked ? [...new Set([...settings.topics, ...topics.filter(t => t.subject === id).map(t => t.id)])] : settings.topics.filter(x => topics.find(t => t.id === x)?.subject !== id) }; setSettings(next); void mutate({type:"draft_selection",subjects:next.subjects,topics:next.topics}); };
+  const toggleTopic = (id: string, checked: boolean) => { const next = {...settings,topics:checked?[...settings.topics,id]:settings.topics.filter(x=>x!==id)}; setSettings(next); void mutate({type:"draft_selection",subjects:next.subjects,topics:next.topics}); };
   const openProfile = () => { setName(state.name); go("profile"); };
   const moveStep = (n: number) => { setStep(n); window.scrollTo({ top: 0, behavior: "smooth" }); };
   const start = async () => {
