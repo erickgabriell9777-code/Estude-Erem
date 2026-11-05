@@ -14,4 +14,7 @@ export const coverageSources = [
 {id:'exp5-ethics',title:'Moral Theory',publisher:'Stanford Encyclopedia of Philosophy',url:'https://plato.stanford.edu/entries/moral-theory/',accessedAt:'2026-11-05'},
 {id:'exp5-memory',title:'Data Storage',publisher:'IBM',url:'https://www.ibm.com/think/topics/data-storage',accessedAt:'2026-11-05'},
 {id:'exp5-interest',title:'Mathematics of Finance — Compound Interest',publisher:'OpenStax / Contemporary Mathematics',url:'https://openstax.org/books/contemporary-mathematics/pages/6-4-compound-interest',accessedAt:'2026-11-04'}
+,{id:'exp7-inflation',title:'Fundamentals of Engineering Economic Analysis',publisher:'Engineering LibreTexts',url:'https://eng.libretexts.org/Bookshelves/Industrial_and_Systems_Engineering',accessedAt:'2026-11-05'}
+,{id:'exp7-acids',title:'Chemistry 2e — Acids and Bases',publisher:'OpenStax',url:'https://openstax.org/books/chemistry-2e/pages/14-introduction',accessedAt:'2026-11-05'}
+,{id:'exp7-kinetics',title:'Chemistry 2e — Kinetics',publisher:'OpenStax',url:'https://openstax.org/books/chemistry-2e/pages/12-introduction',accessedAt:'2026-11-05'}
 ];
