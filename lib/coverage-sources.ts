@@ -29,4 +29,5 @@ export const coverageSources = [
 ,{id:'br-obmep-provas',title:'Provas e soluções da Olimpíada Brasileira de Matemática das Escolas Públicas (OBMEP)',publisher:'OBMEP / IMPA',url:'https://www.obmep.org.br/provas.htm',accessedAt:'2026-11-05'}
 ,{id:'br-obmep-banco',title:'Banco de questões da OBMEP',publisher:'OBMEP / IMPA',url:'https://obmep.org.br/banco.htm',accessedAt:'2026-11-05'}
 ,{id:'br-bncc',title:'Base Nacional Comum Curricular (BNCC)',publisher:'Ministério da Educação',url:'https://basenacionalcomum.mec.gov.br/',accessedAt:'2026-11-05'}
+,{id:'exp11-metrology',title:'Measurement Uncertainty and Metrology',publisher:'National Institute of Standards and Technology (NIST)',url:'https://www.nist.gov/itl/sed/topic-areas/measurement-uncertainty',accessedAt:'2026-11-05'}
 ];
