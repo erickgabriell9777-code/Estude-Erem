@@ -50,7 +50,29 @@ export function XpPage({state,go}: {state:StudyState;go:(v:MainView)=>void}) {
 }
 export function ProfilePage({state,name,setName,busy,save,go}:{state:StudyState;name:string;setName:(n:string)=>void;busy:boolean;save:()=>Promise<void>;go:(v:MainView)=>void}) {
  const xp=xpProgress(state.stats);
- return <><div className="page-heading"><div><p className="eyebrow">SUA CONTA</p><h1>Meu perfil</h1><p>Seu nome e o que você já conquistou estudando.</p></div></div><div className="profile-layout"><section className="dashboard-card"><div className="profile-heading"><span className="profile-avatar">{state.name.slice(0,1).toUpperCase()}</span><div><h2>{state.name}</h2><p>Nível {xp.level} · {xp.total} XP</p></div></div><form className="profile-form" onSubmit={e=>{e.preventDefault();void save()}}><label htmlFor="profile-name" className="form-label">Como quer ser chamado?</label><input className="text-input" id="profile-name" value={name} onChange={e=>setName(e.target.value)} maxLength={40} required/><Button type="submit" disabled={busy||!name.trim()||name.trim()===state.name}>{busy?"Salvando…":"Salvar nome"}</Button></form></section><section className="dashboard-card"><h2>Seu estudo até aqui</h2><dl className="profile-stats"><div><dt>Perguntas respondidas</dt><dd>{state.stats.answered}</dd></div><div><dt>Respostas certas</dt><dd>{state.stats.correct}</dd></div><div><dt>Sessões concluídas</dt><dd>{state.stats.sessions}</dd></div></dl><Button variant="outline" onClick={()=>go("history")}>Abrir histórico<History size={16}/></Button></section></div></>;
+ const accuracy=state.stats.answered>0?Math.round((state.stats.correct/state.stats.answered)*100):0;
+ const initial=(state.name.trim().split(/\\s+/).filter(Boolean).slice(0,2).map(part=>part[0]).join("")||"E").toUpperCase();
+ return <div className="profile-page-v2">
+  <div className="page-heading profile-page-heading"><div><p className="eyebrow">SUA JORNADA</p><h1>Meu perfil</h1><p>Acompanhe suas conquistas e organize sua experiência de estudo.</p></div></div>
+  <section className="profile-hero" aria-label="Resumo do perfil">
+   <div className="profile-hero-main"><span className="profile-avatar profile-avatar-v2" aria-hidden="true">{initial}</span><div className="profile-hero-identity"><span className="profile-kicker">ESTUDANTE EREM</span><h2>{state.name||"Estudante"}</h2><p>Seu espaço de aprendizagem</p></div><span className="profile-level-pill"><Trophy size={16}/> Nível {xp.level}</span></div>
+   <div className="profile-xp-block"><div className="profile-xp-label"><span>Seu progresso de nível</span><strong>{xp.total.toLocaleString("pt-BR")} XP</strong></div><Progress value={xp.within} aria-label="Progresso para o próximo nível"/><small>{xp.remaining} XP para alcançar o nível {xp.level+1}</small></div>
+  </section>
+  <section className="profile-metrics" aria-label="Resumo dos estudos">
+   <article className="profile-metric"><span className="profile-metric-icon"><BookOpen size={19}/></span><strong>{state.stats.answered.toLocaleString("pt-BR")}</strong><span>Questões respondidas</span></article>
+   <article className="profile-metric"><span className="profile-metric-icon"><Check size={19}/></span><strong>{accuracy}%</strong><span>Taxa de acertos</span></article>
+   <article className="profile-metric"><span className="profile-metric-icon"><Target size={19}/></span><strong>{state.stats.sessions.toLocaleString("pt-BR")}</strong><span>Sessões concluídas</span></article>
+  </section>
+  <div className="profile-content-grid">
+   <section className="dashboard-card profile-edit-card"><div className="profile-card-heading"><div><span className="profile-kicker">IDENTIDADE</span><h2>Seus dados</h2><p>Personalize como seu perfil aparece no aplicativo.</p></div><span className="profile-card-icon"><UserRound size={19}/></span></div>
+    <form className="profile-form profile-form-v2" onSubmit={e=>{e.preventDefault();void save()}}><label htmlFor="profile-name" className="form-label">Nome de exibição</label><input className="text-input" id="profile-name" value={name} onChange={e=>setName(e.target.value)} maxLength={40} required/><small className="profile-field-hint">Esse nome aparece na sua área de estudos.</small><Button type="submit" disabled={busy||!name.trim()||name.trim()===state.name}>{busy?"Salvando…":"Salvar alterações"}</Button></form>
+   </section>
+   <section className="dashboard-card profile-achievements-card"><div className="profile-card-heading"><div><span className="profile-kicker">SEU DESEMPENHO</span><h2>Conquistas até aqui</h2><p>O resultado do seu esforço, sessão após sessão.</p></div><span className="profile-card-icon"><Trophy size={19}/></span></div>
+    <div className="profile-achievement-list"><div><span className="profile-achievement-symbol"><Check size={17}/></span><span><strong>{state.stats.correct.toLocaleString("pt-BR")} respostas certas</strong><small>Conhecimento construído na prática</small></span></div><div><span className="profile-achievement-symbol"><Sparkles size={17}/></span><span><strong>{xp.total.toLocaleString("pt-BR")} pontos de experiência</strong><small>Continue estudando para avançar de nível</small></span></div></div>
+    <Button variant="outline" className="profile-history-button" onClick={()=>go("history")}>Ver histórico completo <ArrowRight size={16}/></Button>
+   </section>
+  </div>
+ </div>;
 }
 export function SettingsPage({draft,setDraft,saved,busy,save}:{draft:Appearance;setDraft:(a:Appearance)=>void;saved:Appearance;busy:boolean;save:()=>Promise<void>}) {
  const changed=JSON.stringify(draft)!==JSON.stringify(saved);
