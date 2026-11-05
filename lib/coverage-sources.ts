@@ -35,4 +35,8 @@ export const coverageSources = [
 
 ,{id:'exp14-calculus2',title:'Calculus Volume 2 — Integration Techniques, Applications of Integration and Power Series',publisher:'OpenStax / Rice University',url:'https://openstax.org/details/books/calculus-volume-2',accessedAt:'2026-11-05'}
 ,{id:'exp14-calculus3',title:'Calculus Volume 3 — Functions of Several Variables and Partial Derivatives',publisher:'OpenStax / Rice University',url:'https://openstax.org/details/books/calculus-volume-3',accessedAt:'2026-11-05'}
+,{id:'exp12-solar-system',title:'Solar System Exploration',publisher:'NASA',url:'https://science.nasa.gov/solar-system/',accessedAt:'2026-11-05'}
+,{id:'exp12-sociology',title:'Introduction to Sociology 3e',publisher:'OpenStax',url:'https://openstax.org/details/books/introduction-sociology-3e',accessedAt:'2026-11-05'}
+,{id:'exp12-javascript',title:'JavaScript Guide',publisher:'MDN Web Docs',url:'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide',accessedAt:'2026-11-05'}
+,{id:'exp12-ser-estar',title:'Gramática española: ser y estar',publisher:'Instituto Cervantes',url:'https://cvc.cervantes.es/ensenanza/biblioteca_ele/gramatica/',accessedAt:'2026-11-05'}
 ];
