@@ -20,4 +20,7 @@ export const coverageSources = [
 ,{id:'exp9-measurement',title:'Physics — Measurement and Units',publisher:'OpenStax',url:'https://openstax.org/books/physics/pages/1-introduction',accessedAt:'2026-11-05'}
 ,{id:'exp9-earth',title:'Earth, Sun, and Seasons',publisher:'NASA Space Place',url:'https://spaceplace.nasa.gov/earth-days/en/',accessedAt:'2026-11-05'}
 ,{id:'exp9-logic',title:'Contemporary Mathematics — Statements and Negations',publisher:'OpenStax',url:'https://openstax.org/books/contemporary-mathematics/pages/2-1-statements-and-negations',accessedAt:'2026-11-05'}
+,{id:'exp10-past-simple',title:'Past simple',publisher:'British Council LearnEnglish',url:'https://learnenglish.britishcouncil.org/grammar/english-grammar-reference/past-simple',accessedAt:'2026-11-05'}
+,{id:'exp10-present-simple',title:'Present simple',publisher:'British Council LearnEnglish',url:'https://learnenglish.britishcouncil.org/grammar/english-grammar-reference/present-simple',accessedAt:'2026-11-05'}
+,{id:'exp10-industrial-revolution',title:'The Industrial Revolution',publisher:'The British Library',url:'https://www.bl.uk/romantics-and-victorians/articles/the-industrial-revolution',accessedAt:'2026-11-05'}
 ];
