@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import {useEffect,useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Search, NotebookPen, Route, Star, BookOpen, ArrowRight, Sparkles, History, Palette, Check, LockKeyhole, Trophy, Sun, Moon, Circle, UserRound, Timer, Layers3, CalendarClock, ClipboardList, Target, Info, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import changelog from "@/lib/changelog.json";
 export type MainView = "books" | "path" | "saved" | "errors" | "home" | "setup" | "quiz" | "result" | "history" | "profile" | "xp" | "settings";
 export function HomePage({state,catalogue,go,resume,selectedSubjects,toggleSubject,prepareSubjects,topic,openResource}: {state:StudyState;catalogue:Catalogue;go:(v:MainView)=>void;resume:()=>void;selectedSubjects:string[];toggleSubject:(id:string,checked:boolean)=>void;prepareSubjects:()=>void;topic:(id:string)=>void;openResource:(section:string)=>void}) {
  const [query,setQuery]=useState(''),[group,setGroup]=useState('Todas'),[expanded,setExpanded]=useState(false),[limit,setLimit]=useState(12);
+ useEffect(()=>{const resetSearch=()=>{setQuery('');const input=document.querySelector<HTMLInputElement>('input[name="catalogue-search"]');if(input)input.value='';};resetSearch();window.addEventListener('pageshow',resetSearch);return()=>window.removeEventListener('pageshow',resetSearch);},[]);
  const normalize=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
  const search=normalize(query.trim());
  const groups=['Todas',...new Set(catalogue.subjects.map(s=>s.group))];
