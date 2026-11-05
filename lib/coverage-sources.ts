@@ -17,4 +17,7 @@ export const coverageSources = [
 ,{id:'exp7-inflation',title:'Fundamentals of Engineering Economic Analysis',publisher:'Engineering LibreTexts',url:'https://eng.libretexts.org/Bookshelves/Industrial_and_Systems_Engineering',accessedAt:'2026-11-05'}
 ,{id:'exp7-acids',title:'Chemistry 2e — Acids and Bases',publisher:'OpenStax',url:'https://openstax.org/books/chemistry-2e/pages/14-introduction',accessedAt:'2026-11-05'}
 ,{id:'exp7-kinetics',title:'Chemistry 2e — Kinetics',publisher:'OpenStax',url:'https://openstax.org/books/chemistry-2e/pages/12-introduction',accessedAt:'2026-11-05'}
+,{id:'exp9-measurement',title:'Physics — Measurement and Units',publisher:'OpenStax',url:'https://openstax.org/books/physics/pages/1-introduction',accessedAt:'2026-11-05'}
+,{id:'exp9-earth',title:'Earth, Sun, and Seasons',publisher:'NASA Space Place',url:'https://spaceplace.nasa.gov/earth-days/en/',accessedAt:'2026-11-05'}
+,{id:'exp9-logic',title:'Contemporary Mathematics — Statements and Negations',publisher:'OpenStax',url:'https://openstax.org/books/contemporary-mathematics/pages/2-1-statements-and-negations',accessedAt:'2026-11-05'}
 ];
