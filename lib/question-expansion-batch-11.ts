@@ -27,7 +27,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre paquímetro e sua grandeza está correta?",
     [
       "régua",
       "paquímetro",
@@ -75,7 +75,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre micrômetro e sua grandeza está correta?",
     [
       "trena",
       "micrômetro",
@@ -123,7 +123,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre balança e sua grandeza está correta?",
     [
       "balança",
       "dinamômetro",
@@ -171,7 +171,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre termômetro e sua grandeza está correta?",
     [
       "higrômetro",
       "termômetro",
@@ -219,7 +219,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre cronômetro e sua grandeza está correta?",
     [
       "cronômetro",
       "voltímetro",
@@ -267,7 +267,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre barômetro e sua grandeza está correta?",
     [
       "pluviômetro",
       "barômetro",
@@ -315,7 +315,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre higrômetro e sua grandeza está correta?",
     [
       "higrômetro",
       "anemômetro",
@@ -363,7 +363,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre amperímetro e sua grandeza está correta?",
     [
       "voltímetro",
       "amperímetro",
@@ -411,7 +411,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre voltímetro e sua grandeza está correta?",
     [
       "amperímetro",
       "voltímetro",
@@ -459,7 +459,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre ohmímetro e sua grandeza está correta?",
     [
       "ohmímetro",
       "barômetro",
@@ -507,7 +507,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre luxímetro e sua grandeza está correta?",
     [
       "sonômetro",
       "luxímetro",
@@ -555,7 +555,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre sonômetro e sua grandeza está correta?",
     [
       "barômetro",
       "sonômetro",
@@ -603,7 +603,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre tacômetro e sua grandeza está correta?",
     [
       "tacômetro",
       "anemômetro",
@@ -651,7 +651,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre pluviômetro e sua grandeza está correta?",
     [
       "higrômetro",
       "pluviômetro",
@@ -699,7 +699,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre anemômetro e sua grandeza está correta?",
     [
       "barômetro",
       "anemômetro",
@@ -747,7 +747,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre dinamômetro e sua grandeza está correta?",
     [
       "balança",
       "dinamômetro",
@@ -795,7 +795,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre proveta e sua grandeza está correta?",
     [
       "proveta",
       "paquímetro",
@@ -843,7 +843,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre bureta e sua grandeza está correta?",
     [
       "pipeta volumétrica",
       "bureta",
@@ -891,7 +891,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre pipeta volumétrica e sua grandeza está correta?",
     [
       "proveta",
       "bureta",
@@ -939,7 +939,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
     "Médio"
   ],
   [
-    "Qual associação entre instrumento e grandeza está correta?",
+    "Qual associação entre multímetro e sua grandeza está correta?",
     [
       "multímetro",
       "micrômetro",
