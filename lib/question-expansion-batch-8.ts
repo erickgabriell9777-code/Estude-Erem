@@ -19,7 +19,7 @@ const groups: { subject: Question["subject"]; topic: string; prefix: string; sou
       ["Uma inflação mensal constante de 1% produz inflação efetiva acumulada em 12 meses de aproximadamente:", ["12%", "12,68%", "1,12%", "24%"], 1, "A inflação composta é (1,01)^12 − 1 ≈ 12,68%, não simplesmente 12%.", "Médio"],
       ["Quando uma taxa nominal é apresentada sem informar a periodicidade de capitalização, a comparação com outra taxa efetiva fica:", ["Completa e imediata", "Ambígua, pois falta uma convenção essencial", "Sempre impossível em qualquer contexto", "Independente do prazo"], 1, "A taxa nominal depende da frequência de capitalização para determinar o rendimento efetivo; sem essa informação, a comparação não é completa.", "Médio"],
       ["Se uma aplicação rende 4% em um trimestre, a taxa efetiva equivalente para dois trimestres é:", ["8%", "8,16%", "4,08%", "16%"], 1, "Dois trimestres compostos: (1,04)^2 − 1 = 0,0816, ou 8,16%.", "Médio"],
-      ["Uma taxa real de 3% e inflação de 5% no mesmo período correspondem a uma taxa nominal exata de:", ["8%", "7,15%", "2%", "15%"], 1, "Pela relação de Fisher, (1,03)(1,05) − 1 = 0,0815, ou 8,15%.", "Difícil"]
+      ["Uma taxa real de 3% e inflação de 5% no mesmo período correspondem a uma taxa nominal exata de:", ["8%", "8,15%", "2%", "15%"], 1, "Pela relação de Fisher, (1,03)(1,05) − 1 = 0,0815, ou 8,15%.", "Difícil"]
     ]
   },
   {
