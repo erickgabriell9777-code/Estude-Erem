@@ -64,3 +64,22 @@ export const drawingNotebooks = sqliteTable("drawing_notebooks", {
 export const authIdentityLinks=sqliteTable('auth_identity_links',{
  authUserId:text('auth_user_id').primaryKey(),appUserId:text('app_user_id').notNull().unique(),createdAt:text('created_at').notNull(),
 });
+
+export const duelRooms = sqliteTable("duel_rooms", {
+ code: text("code").primaryKey(),
+ hostId: text("host_id").notNull(),
+ guestId: text("guest_id"),
+ status: text("status").notNull(),
+ questions: text("questions").notNull(),
+ currentIndex: integer("current_index").notNull().default(0),
+ createdAt: text("created_at").notNull(),
+ updatedAt: text("updated_at").notNull(),
+});
+export const duelAnswers = sqliteTable("duel_answers", {
+ code: text("code").notNull(),
+ questionIndex: integer("question_index").notNull(),
+ userId: text("user_id").notNull(),
+ choice: integer("choice").notNull(),
+ correct: integer("correct").notNull(),
+ createdAt: text("created_at").notNull(),
+}, t => [primaryKey({columns:[t.code,t.questionIndex,t.userId]})]);

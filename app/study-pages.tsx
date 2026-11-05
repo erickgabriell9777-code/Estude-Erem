@@ -12,7 +12,7 @@ import type { Catalogue } from "@/lib/catalogue-types";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription} from "./app-dialog";
 import {appVersion, appBuild} from "@/lib/app-version";
 import changelog from "@/lib/changelog.json";
-export type MainView = "books" | "path" | "saved" | "errors" | "home" | "setup" | "quiz" | "result" | "history" | "profile" | "xp" | "settings";
+export type MainView = "duel" | "books" | "path" | "saved" | "errors" | "home" | "setup" | "quiz" | "result" | "history" | "profile" | "xp" | "settings";
 export function HomePage({state,catalogue,go,resume,selectedSubjects,toggleSubject,prepareSubjects,topic,openResource}: {state:StudyState;catalogue:Catalogue;go:(v:MainView)=>void;resume:()=>void;selectedSubjects:string[];toggleSubject:(id:string,checked:boolean)=>void;prepareSubjects:()=>void;topic:(id:string)=>void;openResource:(section:string)=>void}) {
  const [query,setQuery]=useState(''),[group,setGroup]=useState('Todas'),[expanded,setExpanded]=useState(false),[limit,setLimit]=useState(12);
  useEffect(()=>{const resetSearch=()=>{setQuery('');const input=document.querySelector<HTMLInputElement>('input[name="catalogue-search"]');if(input)input.value='';};resetSearch();window.addEventListener('pageshow',resetSearch);return()=>window.removeEventListener('pageshow',resetSearch);},[]);
