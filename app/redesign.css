@@ -448,8 +448,8 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
   left:max(12px,env(safe-area-inset-left))!important;
   right:max(12px,env(safe-area-inset-right))!important;
   bottom:calc(10px + env(safe-area-inset-bottom))!important;
-  inset-inline:auto!important;
   width:auto!important;
+  box-sizing:border-box!important;
   display:grid!important;
   grid-template-columns:repeat(5,minmax(0,1fr))!important;
   align-items:center;
