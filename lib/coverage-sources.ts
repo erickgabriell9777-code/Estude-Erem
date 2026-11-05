@@ -32,4 +32,7 @@ export const coverageSources = [
 ,{id:'exp11-metrology',title:'Measurement Uncertainty and Metrology',publisher:'National Institute of Standards and Technology (NIST)',url:'https://www.nist.gov/itl/sed/topic-areas/measurement-uncertainty',accessedAt:'2026-11-05'}
 
 ,{id:'exp13-calculus2',title:'Calculus Volume 2 — Integration Techniques, Improper Integrals and Applications of Integration',publisher:'OpenStax',url:'https://openstax.org/details/books/calculus-volume-2',accessedAt:'2026-11-05'}
+
+,{id:'exp14-calculus2',title:'Calculus Volume 2 — Integration Techniques, Applications of Integration and Power Series',publisher:'OpenStax / Rice University',url:'https://openstax.org/details/books/calculus-volume-2',accessedAt:'2026-11-05'}
+,{id:'exp14-calculus3',title:'Calculus Volume 3 — Functions of Several Variables and Partial Derivatives',publisher:'OpenStax / Rice University',url:'https://openstax.org/details/books/calculus-volume-3',accessedAt:'2026-11-05'}
 ];
