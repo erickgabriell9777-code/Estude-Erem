@@ -119,7 +119,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
       "luxímetro"
     ],
     0,
-    "A escolha adequada é o balança, pois sua finalidade é medir massa.",
+    "A escolha adequada é a balança, pois sua finalidade é medir massa.",
     "Médio"
   ],
   [
@@ -143,7 +143,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
       "luxímetro"
     ],
     0,
-    "Para medir massa, deve-se selecionar o balança; a unidade usual é quilograma ou grama.",
+    "Para medir massa, deve-se selecionar a balança; a unidade usual é quilograma ou grama.",
     "Difícil"
   ],
   [
@@ -887,7 +887,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
       "pluviômetro"
     ],
     2,
-    "A escolha adequada é o pipeta volumétrica, pois sua finalidade é medir transferência de um volume fixo.",
+    "A escolha adequada é a pipeta volumétrica, pois sua finalidade é medir transferência de um volume fixo.",
     "Médio"
   ],
   [
@@ -911,7 +911,7 @@ const rows: [string, string[], number, string, "Fácil" | "Médio" | "Difícil"]
       "pluviômetro"
     ],
     2,
-    "Para medir transferência de um volume fixo, deve-se selecionar o pipeta volumétrica; a unidade usual é mililitro.",
+    "Para medir transferência de um volume fixo, deve-se selecionar a pipeta volumétrica; a unidade usual é mililitro.",
     "Difícil"
   ],
   [
