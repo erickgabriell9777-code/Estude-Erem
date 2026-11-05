@@ -554,3 +554,20 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
 .duel-question-meta>span{display:flex;align-items:center;gap:5px;font-weight:800;color:var(--primary)}
 .duel-option.is-selected{border-color:var(--primary);background:var(--accent);box-shadow:0 0 0 1px var(--primary)}
 @media(max-width:650px){.duel-settings-grid{grid-template-columns:1fr}.duel-panel{padding:16px!important}}
+
+
+/* Duelo: botão central contido na barra, sem ficar projetado para fora. */
+@media(max-width:1023px){
+ .mobile-nav .duel-nav-button{align-self:center!important;justify-self:center!important;width:64px!important;height:62px!important;min-height:62px!important;margin:0!important;padding:6px 3px!important;border-width:2px!important;border-radius:18px!important;transform:none!important}
+ .mobile-nav .duel-nav-button[aria-current=page]{transform:none!important}
+}
+.duel-settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.duel-history{margin-top:14px}
+.duel-history-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 2px;border-bottom:1px solid var(--border)}
+.duel-history-row:last-child{border-bottom:0;padding-bottom:0}
+.duel-history-row>div{display:grid;gap:3px;min-width:0}
+.duel-history-row strong{font-size:.88rem;overflow-wrap:anywhere}
+.duel-history-row small{font-size:.75rem;color:var(--muted-foreground)}
+.duel-history-result{text-align:right;flex:0 0 auto}
+@media(max-width:650px){.duel-settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.duel-panel,.duel-question{padding:17px!important}}
+@media(max-width:360px){.duel-settings-grid{grid-template-columns:minmax(0,1fr)}}
