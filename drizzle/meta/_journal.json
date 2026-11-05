@@ -58,6 +58,19 @@
       "tag": "0007_account_identity_links",
       "breakpoints": true
     },
-    {"idx":8,"version":"6","when":1792460000000,"tag":"0008_duel_rooms","breakpoints":true}
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1792460000000,
+      "tag": "0008_duel_rooms",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1792461000000,
+      "tag": "0009_duel_settings",
+      "breakpoints": true
+    }
   ]
 }
