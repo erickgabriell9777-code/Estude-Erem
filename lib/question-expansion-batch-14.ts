@@ -1,6 +1,6 @@
 import type { Question } from "./study-data";
 type Row = ["Fácil" | "Médio" | "Difícil", string, string[], number, string];
-const sourceId = "exp14-calculus2";
+const sourceByTopic: Record<string,string> = {"topic-116":"exp14-calculus3","topic-157":"exp14-calculus2","topic-158":"exp14-calculus2","topic-221":"exp14-calculus2"};
 const groups: {topic:string;prefix:string;rows:Row[]}[] = [
 {topic:"topic-116",prefix:"exp14-partials",rows:[
 ["Fácil","Se f(x,y)=3x²+2y, qual é a derivada parcial em relação a x? ",["6x","2","3x","6x+2"],0,"Ao derivar em relação a x, y é constante; a derivada de 3x² é 6x."],
@@ -91,4 +91,4 @@ const groups: {topic:string;prefix:string;rows:Row[]}[] = [
 ["Difícil","Em uma parametrização, inverter o sentido do parâmetro altera o comprimento geométrico da curva? ",["Não, o comprimento permanece o mesmo","Sim, troca o sinal do comprimento","Sim, duplica o comprimento","Só se a curva for fechada"],0,"O comprimento integra a norma da velocidade, que é não negativa; inverter a orientação não muda a distância percorrida."],
 ]},
 ];
-export const expansionBatch14Questions: Question[] = groups.flatMap(group => group.rows.map(([level,prompt,options,answer,explanation],i)=>({id:`${group.prefix}-${String(i+1).padStart(2,"0")}`,subject:"calculo2",topic:group.topic,level,prompt,options,answer,explanation,sourceId,xp:10})));
+export const expansionBatch14Questions: Question[] = groups.flatMap(group => group.rows.map(([level,prompt,options,answer,explanation],i)=>({id:`${group.prefix}-${String(i+1).padStart(2,"0")}`,subject:"calculo2",topic:group.topic,level,prompt,options,answer,explanation,sourceId:sourceByTopic[group.topic],xp:10})));
