@@ -571,3 +571,26 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
 .duel-history-result{text-align:right;flex:0 0 auto}
 @media(max-width:650px){.duel-settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.duel-panel,.duel-question{padding:17px!important}}
 @media(max-width:360px){.duel-settings-grid{grid-template-columns:minmax(0,1fr)}}
+
+
+/* App-owned selectors for the Duel setup and synchronized phase countdowns. */
+.duel-field{display:grid;gap:7px;min-width:0}
+.duel-field>label{font-size:.85rem;font-weight:700;color:var(--foreground)}
+.duel-select-trigger{width:100%!important;height:46px!important;min-width:0!important;border:1px solid var(--border)!important;border-radius:12px!important;background:var(--background)!important;color:var(--foreground)!important;font:inherit!important;box-shadow:none!important}
+.duel-subject-picker{position:relative;min-width:0}
+.duel-subject-menu{position:absolute;z-index:70;top:calc(100% + 7px);left:0;right:0;max-height:min(64vh,470px);overflow:auto;padding:10px;border:1px solid var(--border);border-radius:15px;background:var(--card);box-shadow:0 16px 42px #00000024}
+.duel-subject-menu-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:4px 5px 9px;border-bottom:1px solid var(--border);font-size:.85rem}
+.duel-subject-menu-head button{color:var(--primary);font-size:.78rem;font-weight:750}
+.duel-subject-option{display:flex;width:100%;align-items:center;justify-content:space-between;gap:10px;min-height:39px;padding:8px 9px;border-radius:9px;text-align:left;font-size:.84rem;color:var(--foreground)}
+.duel-subject-option:hover,.duel-subject-option.is-selected{background:var(--accent);color:var(--primary)}
+.duel-subject-group{display:grid;gap:2px;padding-top:9px}
+.duel-subject-group>small{padding:4px 9px;color:var(--muted-foreground);font-size:.68rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.duel-subject-done{width:100%;min-height:42px;margin-top:10px;border-radius:10px;background:var(--primary);color:var(--primary-foreground);font-size:.84rem;font-weight:750}
+.duel-phase-countdown{display:grid;justify-items:center;gap:7px;margin-top:16px;padding:26px 18px;border:1px solid color-mix(in srgb,var(--primary) 25%,var(--border));border-radius:18px;background:color-mix(in srgb,var(--primary) 7%,var(--card));text-align:center}
+.duel-phase-countdown>span{color:var(--muted-foreground);font-size:.9rem;font-weight:700}
+.duel-phase-countdown>strong{font-size:clamp(3rem,12vw,5rem);line-height:1;font-weight:900;letter-spacing:-.06em;color:var(--primary);font-variant-numeric:tabular-nums}
+.duel-phase-countdown>small{color:var(--muted-foreground);font-size:.8rem;line-height:1.5}
+.duel-phase-break{padding:22px 18px}
+.duel-phase-break>strong{font-size:clamp(2.2rem,9vw,3.3rem)}
+@media(max-width:650px){.duel-settings-grid{grid-template-columns:1fr 1fr}.duel-subject-menu{max-height:55vh}}
+@media(max-width:380px){.duel-settings-grid{grid-template-columns:minmax(0,1fr)}}
