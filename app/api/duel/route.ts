@@ -57,11 +57,13 @@ export async function POST(request:Request){
  try{
  const database=db(),now=new Date().toISOString();
  if(body.action==="create"){
-  const catalogue=await loadCatalogue(database),themeIds=Array.isArray(body.themeIds)?body.themeIds.filter((v):v is string=>typeof v==="string"&&v.length<=80):typeof body.themeId==="string"&&body.themeId?[body.themeId]:[];
+  const catalogue=await loadCatalogue(database),themeIds=Array.isArray(body.themeIds)?body.themeIds.filter((v):v is string=>typeof v==="string"&&catalogue.subjects.some(s=>s.id===v)):typeof body.themeId==="string"&&body.themeId?[body.themeId]:[];
+  const requestedTopicIds=Array.isArray(body.topicIds)?body.topicIds.filter((v):v is string=>typeof v==="string"):[];
+  const topicIds=requestedTopicIds.filter(id=>catalogue.topics.some(t=>t.id===id&&(!themeIds.length||themeIds.includes(t.subject))));
   const difficulty=typeof body.difficulty==="string"&&["Fácil","Médio","Difícil"].includes(body.difficulty)?body.difficulty:null;
-  const pool=[...catalogue.questions].filter(q=>(!themeIds.length||themeIds.includes(q.subject))&&(!difficulty||q.level===difficulty)).sort(()=>Math.random()-.5),count=Number(body.questionCount),seconds=Number(body.secondsPerQuestion);
+  const pool=[...catalogue.questions].filter(q=>(!themeIds.length||themeIds.includes(q.subject))&&(!topicIds.length||topicIds.includes(q.topic))&&(!difficulty||q.level===difficulty)).sort(()=>Math.random()-.5),count=Number(body.questionCount),seconds=Number(body.secondsPerQuestion);
   if(!Number.isInteger(count)||count<1||count>30||!Number.isInteger(seconds)||![10,15,20,30,45,60].includes(seconds))return json({error:"Configurações de duelo inválidas."},400);
-  const selected=pool.slice(0,Math.min(count,pool.length));if(!selected.length)return json({error:"Não há perguntas disponíveis para essa combinação de matéria e dificuldade."},503);
+  const selected=pool.slice(0,Math.min(count,pool.length));if(!selected.length)return json({error:"Não há perguntas disponíveis para essa combinação de matérias, assuntos e dificuldade. Selecione outras opções."},503);
   let code="";for(let i=0;i<8;i++){const bytes=crypto.getRandomValues(new Uint8Array(6));code=Array.from(bytes,x=>"ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[x%32]).join("");if(!await roomFor(code))break;code="";}
   if(!code)return json({error:"Não foi possível gerar o código. Tente novamente."},503);
   await database.prepare("INSERT INTO duel_rooms(code,host_id,host_name,status,questions,current_index,seconds_per_question,question_started_at,theme_id,created_at,updated_at) VALUES(?,?,?,'waiting',?,0,?,NULL,?,?,?)").bind(code,user.userId,await displayName(user.userId,user.fullName??user.displayName),JSON.stringify(selected.map(q=>q.id)),seconds,themeIds.length?JSON.stringify(themeIds):null,now,now).run();
