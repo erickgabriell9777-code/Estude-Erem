@@ -54,7 +54,8 @@ export async function POST(request:Request){
    if(!Number.isInteger(body.questionIndex)||body.questionIndex!==room.current_index||!Number.isInteger(body.choice)||(body.choice as number)<0||(body.choice as number)>3)return json({error:"Resposta inválida ou pergunta desatualizada."},400);
    const catalogue=await loadCatalogue(database),ids=JSON.parse(room.questions) as string[],question=catalogue.questions.find(q=>q.id===ids[room.current_index]);
    if(!question)return json({error:"Pergunta não encontrada."},409);
-   await database.prepare("INSERT OR IGNORE INTO duel_answers(code,question_index,user_id,choice,correct,created_at) VALUES(?,?,?,?,?,?)").bind(code,room.current_index,user.userId,body.choice,body.choice===question.answer?1:0,now).run();
+   const choice=body.choice as number;
+   await database.prepare("INSERT OR IGNORE INTO duel_answers(code,question_index,user_id,choice,correct,created_at) VALUES(?,?,?,?,?,?)").bind(code,room.current_index,user.userId,choice,choice===question.answer?1:0,now).run();
    const count=await database.prepare("SELECT COUNT(*) AS count FROM duel_answers WHERE code=? AND question_index=?").bind(code,room.current_index).first<{count:number}>();
    if((count?.count??0)>=2){const last=room.current_index>=ids.length-1;await database.prepare("UPDATE duel_rooms SET current_index=?,status=?,updated_at=? WHERE code=? AND current_index=?").bind(last?room.current_index:room.current_index+1,last?"finished":"active",now,code,room.current_index).run();}
    room=await roomFor(code);return json(await present(room!,user.userId,catalogue));
