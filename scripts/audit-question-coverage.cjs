@@ -43,8 +43,8 @@ const sourceModules = [
 ];
 const sources = sourceModules.flatMap(([file, key]) => require(file)[key] ?? []);
 const sourceIds = new Set(sources.map(source => source.id));
-const target = Number(process.env.EREM_QUESTION_TARGET ?? 40);
-if (!Number.isInteger(target) || target < 1) throw new Error('EREM_QUESTION_TARGET deve ser um inteiro positivo.');
+const minimumTarget = 41;
+const maximumTarget = 180;
 
 const subjectById = new Map(subjects.map(subject => [subject.id, subject]));
 const topicById = new Map(topics.map(topic => [topic.id, topic]));
@@ -131,17 +131,19 @@ for (const { topic, total, levels: distribution } of stats.values()) {
   const subjectStat = subjectStats.get(topic.subject);
   if (subjectStat) {
     subjectStat.topics++;
-    if (total < target) subjectStat.belowTarget++;
+    if (total < minimumTarget) subjectStat.belowTarget++;
   }
   if (!total) warnings.push(`Assunto sem questões: ${topic.name} (${topic.id})`);
-  else if (total < target) warnings.push(`Cobertura abaixo da meta: ${topic.name} — ${total}/${target}`);
+  else if (total < minimumTarget) warnings.push(`Cobertura abaixo do mínimo: ${topic.name} — ${total}/${minimumTarget}`);
+  if (total > maximumTarget) warnings.push(`Assunto acima do limite planejado: ${topic.name} — ${total}/${maximumTarget}`);
   if (total > 0 && levels.filter(level => distribution[level] > 0).length < 3) {
     warnings.push(`Dificuldades incompletas: ${topic.name} (${levels.filter(level => distribution[level] > 0).join(', ') || 'nenhuma'})`);
   }
 }
 
 const duplicateWarnings = warnings.filter(item => item.startsWith('Enunciado repetido:'));
-const sparse = [...stats.values()].filter(item => item.total < target).sort((a, b) => a.total - b.total || a.topic.name.localeCompare(b.topic.name));
+const sparse = [...stats.values()].filter(item => item.total < minimumTarget).sort((a, b) => a.total - b.total || a.topic.name.localeCompare(b.topic.name));
+const overLimit = [...stats.values()].filter(item => item.total > maximumTarget).sort((a, b) => b.total - a.total);
 const counts = [...stats.values()].map(item => item.total);
 const average = counts.length ? questions.length / counts.length : 0;
 const minimum = counts.length ? Math.min(...counts) : 0;
@@ -150,8 +152,9 @@ const maximum = counts.length ? Math.max(...counts) : 0;
 console.log('\nESTUDE EREM — AUDITORIA DO BANCO DE QUESTÕES');
 console.log('='.repeat(48));
 console.log(`Matérias: ${subjects.length} | Assuntos: ${topics.length} | Questões: ${questions.length}`);
-console.log(`Meta de cobertura: ${target} questões por assunto | Média: ${average.toFixed(1)} | Mínimo: ${minimum} | Máximo: ${maximum}`);
+console.log(`Faixa planejada: ${minimumTarget} a ${maximumTarget} questões por assunto (quantidade variável) | Média: ${average.toFixed(1)} | Mínimo atual: ${minimum} | Máximo atual: ${maximum}`);
 console.log(`Questões com enunciado repetido: ${duplicateWarnings.length}`);
+for (const item of duplicateWarnings) console.log(`- ${item}`);
 console.log('\nCOBERTURA POR MATÉRIA');
 for (const { subject, total, topics: topicCount, belowTarget, levels: distribution } of subjectStats.values()) {
   console.log(
@@ -159,14 +162,17 @@ for (const { subject, total, topics: topicCount, belowTarget, levels: distributi
     `Fácil ${distribution['Fácil']} / Médio ${distribution['Médio']} / Difícil ${distribution['Difícil']}`
   );
 }
-console.log(`\nASSUNTOS QUE PRECISAM DE EXPANSÃO (menos de ${target})`);
+console.log(`\nASSUNTOS ABAIXO DO MÍNIMO (${minimumTarget})`);
 if (!sparse.length) console.log('Nenhum. Todos os assuntos atingiram a meta.');
 else for (const { topic, total, levels: distribution } of sparse) {
   console.log(
-    `- [${topic.subject}] ${topic.name} (${topic.id}): ${total}/${target} — ` +
+    `- [${topic.subject}] ${topic.name} (${topic.id}): ${total}/${minimumTarget} — ` +
     `F ${distribution['Fácil']} / M ${distribution['Médio']} / D ${distribution['Difícil']}`
   );
 }
+console.log(`\nASSUNTOS ACIMA DO LIMITE PLANEJADO (${maximumTarget})`);
+if (!overLimit.length) console.log('Nenhum.');
+else for (const { topic, total } of overLimit) console.log(`- ${topic.name} (${topic.id}): ${total}/${maximumTarget}`);
 console.log(`\nIntegridade: ${failures.length} erro(s) crítico(s), ${warnings.length} aviso(s).`);
 if (failures.length) {
   console.error('\nERROS QUE PRECISAM SER CORRIGIDOS');
@@ -174,6 +180,9 @@ if (failures.length) {
   if (failures.length > 100) console.error(`... e mais ${failures.length - 100} erro(s).`);
 }
 if (process.argv.includes('--strict-coverage') && sparse.length) {
-  failures.push(`${sparse.length} assunto(s) ainda não atingiram ${target} questões.`);
+  failures.push(`${sparse.length} assunto(s) ainda não atingiram o mínimo de ${minimumTarget} questões.`);
+}
+if (process.argv.includes('--strict-coverage') && overLimit.length) {
+  failures.push(`${overLimit.length} assunto(s) ultrapassaram o limite planejado de ${maximumTarget} questões.`);
 }
 if (failures.length) process.exitCode = 1;

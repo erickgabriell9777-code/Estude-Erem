@@ -1,8 +1,9 @@
 name: Question bank audit
 
 on:
+  workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, feat/question-bank-expansion-batch-1]
   pull_request:
     branches: [main]
 

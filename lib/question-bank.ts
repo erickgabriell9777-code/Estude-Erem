@@ -1,4 +1,18 @@
 import {conceptQuestions} from "./concept-review";
+import { expansionBatch1Questions } from "./question-expansion-batch-1";
+import { expansionBatch2Questions } from "./question-expansion-batch-2";
+import { expansionBatch3Questions } from "./question-expansion-batch-3";
+import { expansionBatch4Questions } from "./question-expansion-batch-4";
+import { expansionBatch5Questions } from "./question-expansion-batch-5";
+import { expansionBatch6Questions } from "./question-expansion-batch-6";
+import { expansionBatch7Questions } from "./question-expansion-batch-7";
+import { expansionBatch9Questions } from "./question-expansion-batch-9";
+import { expansionBatch10Questions } from "./question-expansion-batch-10";
+import { expansionBatch11Questions } from "./question-expansion-batch-11";
+import { expansionBatch12Questions } from "./question-expansion-batch-12";
+import { expansionBatch13Questions } from "./question-expansion-batch-13";
+import { expansionBatch14Questions } from "./question-expansion-batch-14";
+import { expansionBatch8Questions } from "./question-expansion-batch-8";
 import {readingUpdateQuestions} from "./reading-update";
 import {practiceQuestions} from "./practice-expansion";
 import {coverageBatchQuestions} from "./coverage-batch";
@@ -137,7 +151,7 @@ const additions: Question[] = extra.map(([index, prompt, options, answer, explan
   return { ...base, id: `${base.id}-v${variant + 1}`, level: levels[variant], prompt, options, answer, explanation };
 });
 const rank = { Fácil: 0, Médio: 1, Difícil: 2 };
-export const questions: Question[] = [...baseQuestions, ...additions, ...expandedQuestions, ...researchedQuestions, ...calculusQuestions, ...growthQuestions, ...notebookQuestions, ...bookQuestions, ...curriculumQuestions, ...coreQuestions, ...engineeringQuestions, ...moreEngineeringQuestions, ...longCaseQuestions, ...readingBatchQuestions, ...readingBatch2Questions, ...coverageBatchQuestions, ...portugueseDepthQuestions, ...practiceQuestions, ...readingUpdateQuestions, ...conceptQuestions].sort((a, b) => Number(a.topic.slice(6)) - Number(b.topic.slice(6)) || rank[a.level] - rank[b.level]);
+export const questions: Question[] = [...baseQuestions, ...additions, ...expandedQuestions, ...researchedQuestions, ...calculusQuestions, ...growthQuestions, ...notebookQuestions, ...bookQuestions, ...curriculumQuestions, ...coreQuestions, ...engineeringQuestions, ...moreEngineeringQuestions, ...longCaseQuestions, ...readingBatchQuestions, ...readingBatch2Questions, ...coverageBatchQuestions, ...portugueseDepthQuestions, ...practiceQuestions, ...readingUpdateQuestions, ...conceptQuestions, ...expansionBatch1Questions, ...expansionBatch2Questions, ...expansionBatch3Questions, ...expansionBatch4Questions, ...expansionBatch5Questions, ...expansionBatch6Questions, ...expansionBatch7Questions, ...expansionBatch8Questions, ...expansionBatch9Questions, ...expansionBatch10Questions, ...expansionBatch11Questions, ...expansionBatch12Questions, ...expansionBatch13Questions, ...expansionBatch14Questions].sort((a, b) => Number(a.topic.slice(6)) - Number(b.topic.slice(6)) || rank[a.level] - rank[b.level]);
 export {defaultSettings, type Settings} from "./question-selection";
 import {defaultSettings,eligibleQuestions as selectEligible,createQuestionList as selectQuestionList,type Settings} from "./question-selection";
 export function eligibleQuestions(settings:Settings,bank:Question[]=questions,seenCounts?:Record<string,number>){return selectEligible(settings,bank,seenCounts);}
