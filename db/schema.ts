@@ -76,6 +76,7 @@ export const duelRooms = sqliteTable("duel_rooms", {
  currentIndex: integer("current_index").notNull().default(0),
  secondsPerQuestion: integer("seconds_per_question").notNull().default(20),
  questionStartedAt: text("question_started_at"),
+ phase: text("phase").notNull().default("question"),
  themeId: text("theme_id"),
  createdAt: text("created_at").notNull(),
  updatedAt: text("updated_at").notNull(),
