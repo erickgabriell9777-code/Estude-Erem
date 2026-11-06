@@ -697,3 +697,22 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
   .quiz-layout .answer-option.correct,
   .quiz-layout .answer-option.incorrect{animation:none}
 }
+
+
+/* Feedback animado também nas alternativas do Duelo. */
+.duel-option.is-correct{
+  border-color:#16a34a!important;
+  background:color-mix(in srgb,#16a34a 13%,var(--card))!important;
+  color:color-mix(in srgb,#15803d 88%,var(--foreground))!important;
+  box-shadow:inset 0 0 0 1px #16a34a!important;
+  animation:answer-feedback-pop .38s cubic-bezier(.2,.8,.2,1) both;
+}
+.duel-option.is-correct .duel-option-letter{background:#16a34a!important;color:#fff!important}
+.duel-option.is-incorrect{
+  border-color:#dc2626!important;
+  background:color-mix(in srgb,#dc2626 12%,var(--card))!important;
+  color:color-mix(in srgb,#b91c1c 88%,var(--foreground))!important;
+  box-shadow:inset 0 0 0 1px #dc2626!important;
+  animation:answer-feedback-pop .38s cubic-bezier(.2,.8,.2,1) both;
+}
+.duel-option.is-incorrect .duel-option-letter{background:#dc2626!important;color:#fff!important}
