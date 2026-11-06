@@ -5,8 +5,8 @@ import {Button} from "@/components/ui/button";
 type Player={publicId:string;name:string;userId?:string;id?:string;createdAt?:string};
 type Data={myId:string;friends:Player[];incoming:Player[];outgoing:Player[];blocked:Player[]};
 type SearchPlayer={publicId:string;name:string};
-export function FriendsPanel(){
- const [open,setOpen]=useState(false),[tab,setTab]=useState("friends"),[data,setData]=useState<Data|null>(null),[query,setQuery]=useState(""),[results,setResults]=useState<SearchPlayer[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(""),[message,setMessage]=useState("");
+export function FriendsPanel({startOpen=false}:{startOpen?:boolean}){
+ const [open,setOpen]=useState(startOpen),[tab,setTab]=useState("friends"),[data,setData]=useState<Data|null>(null),[query,setQuery]=useState(""),[results,setResults]=useState<SearchPlayer[]>([]),[busy,setBusy]=useState(false),[error,setError]=useState(""),[message,setMessage]=useState("");
  const load=useCallback(async()=>{try{const r=await fetch("/api/friends",{cache:"no-store"}),d=await r.json();if(!r.ok)throw new Error(d.error??"Não foi possível carregar amigos.");setData(d);}catch(e){setError(e instanceof Error?e.message:"Falha ao carregar amigos.");}},[]);
  useEffect(()=>{if(open)void load();},[open,load]);
  useEffect(()=>{if(tab!=="search"||query.trim().length<2){setResults([]);return;}let cancelled=false;const run=async()=>{try{const r=await fetch("/api/friends",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"search",query:query.trim()})}),d=await r.json();if(!cancelled){if(!r.ok)throw new Error(d.error??"Falha na busca.");setResults(d.results??[]);}}catch(e){if(!cancelled)setError(e instanceof Error?e.message:"Falha na busca.");}};void run();return()=>{cancelled=true;};},[query,tab]);
