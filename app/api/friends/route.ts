@@ -54,7 +54,7 @@ export async function POST(request:Request){
    if(term.length<2)return json({results:[]});
    const rows=await database.prepare("SELECT p.user_id,p.public_id,s.state FROM player_ids p LEFT JOIN study_spaces s ON s.id=p.user_id ORDER BY p.created_at DESC LIMIT 500").all<{user_id:string;public_id:string;state:string|null}>();
    const normalized=term.toLocaleLowerCase("pt-BR"),results=[];
-   for(const row of rows.results){if(row.user_id===user.userId||await blocked(user.userId,row.user_id))continue;let display="Estudante";try{const state=JSON.parse(row.state??"{}");if(typeof state.name==="string"&&state.name.trim())display=state.name.trim().slice(0,40);}catch{}if(row.public_id.includes(term)||display.toLocaleLowerCase("pt-BR").includes(normalized)){results.push({publicId:row.public_id,name:display});if(results.length>=20)break;}}
+   for(const row of rows.results){if(row.user_id===user.userId||await blocked(user.userId,row.user_id)||await blocked(row.user_id,user.userId))continue;let display="Estudante";try{const state=JSON.parse(row.state??"{}");if(typeof state.name==="string"&&state.name.trim())display=state.name.trim().slice(0,40);}catch{}if(row.public_id.includes(term)||display.toLocaleLowerCase("pt-BR").includes(normalized)){results.push({publicId:row.public_id,name:display});if(results.length>=20)break;}}
    return json({results,myId:myPublicId});
   }
   if(action==="request"){
