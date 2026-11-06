@@ -83,6 +83,9 @@ export async function POST(request:Request){
    const next=await roomFor(newCode);return json(await present(next!,user.userId,await loadCatalogue(database)),201);
   }
   if(body.action==="join"){
+  const blockedPair=await database.prepare("SELECT 1 AS found FROM friend_blocks WHERE (blocker_id=? AND blocked_id=?) OR (blocker_id=? AND blocked_id=?) LIMIT 1").bind(user.userId,room.host_id,room.host_id,user.userId).first();
+  if(blockedPair)return json({error:"Não é possível entrar nesta sala."},403);
+
   if(room.host_id===user.userId)return json({error:"Você não pode entrar no próprio duelo com a mesma conta."},409);
   if(room.guest_id&&room.guest_id!==user.userId)return json({error:"Este duelo já tem dois participantes."},409);
   if(room.status!=="waiting"&&room.guest_id!==user.userId)return json({error:"Este duelo já começou."},409);
