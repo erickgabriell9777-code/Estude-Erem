@@ -725,3 +725,9 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
 .profile-player-id strong{font-size:.9rem;letter-spacing:1.5px;font-variant-numeric:tabular-nums}
 .profile-player-id button{border:0;background:transparent;color:var(--primary);font-size:.75rem;font-weight:750}
 @media(max-width:600px){.topbar-actions .top-friends-button{width:40px;padding:0}.topbar-actions .top-friends-button span{display:none}.friends-dialog{padding:18px!important}.friends-dialog .friends-panel-head{align-items:flex-start;flex-direction:column}.profile-hero-main{flex-wrap:wrap}.profile-level-pill{margin-left:84px}}
+
+/* Amigos: ícone simples, sem botão quadrado ou etiqueta */
+.topbar-actions .top-friends-button{width:40px;height:40px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--foreground);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.topbar-actions .top-friends-button:hover{background:var(--muted);color:var(--primary)}
+.topbar-actions .top-friends-button:focus-visible{outline:2px solid var(--ring);outline-offset:3px}
+.friends-search input,.friend-person-info strong{text-transform:none!important}
