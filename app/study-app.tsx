@@ -6,7 +6,7 @@ import {QuestionMaterial} from "./question-material";
 
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { Timer, Menu, Star, StickyNote, Route, Lightbulb, NotebookPen, Home, Trophy, Palette, ArrowLeft, ArrowRight, BookOpen, Check, CheckCircle2, ChevronRight, CircleHelp, GraduationCap, History, Layers3, ListOrdered, Loader2, RotateCcw, Settings2, Shuffle, SlidersHorizontal, Sparkles, Target, UserRound, X, Swords } from "lucide-react";
+import { Timer, Menu, Users, Star, StickyNote, Route, Lightbulb, NotebookPen, Home, Trophy, Palette, ArrowLeft, ArrowRight, BookOpen, Check, CheckCircle2, ChevronRight, CircleHelp, GraduationCap, History, Layers3, ListOrdered, Loader2, RotateCcw, Settings2, Shuffle, SlidersHorizontal, Sparkles, Target, UserRound, X, Swords } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./app-dialog";
@@ -23,6 +23,7 @@ import type {Action,StudyState} from "@/lib/study-model";
 import {initialState} from "@/lib/initial-study-state";
 import UpdateAnnouncement from "./update-announcement";
 import { DuelPage } from "./duel-page";
+import { FriendsPanel } from "./friends-panel";
 
 import { Textarea } from "@/components/ui/textarea";
 import { BooksPage, BookReferenceHint } from "./books-page";
@@ -49,6 +50,7 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
     return()=>{viewport?.removeEventListener('resize',update);viewport?.removeEventListener('scroll',update);window.removeEventListener('resize',update);};
   },[]);
   const [menuOpen,setMenuOpen]=useState(false);
+  const [friendsOpen,setFriendsOpen]=useState(false);
   const [resource,setResource]=useState<{section:string;topic?:string;question?:string}|null>(null);
   const [toolsLoaded,setToolsLoaded]=useState(false);
   useEffect(()=>{const id=setTimeout(()=>setToolsLoaded(true),2000);return()=>clearTimeout(id);},[]);
@@ -224,7 +226,8 @@ export default function StudyApp({accountLogin=false}:{accountLogin?:boolean}) {
     </Sidebar>
 
     <div className="app-main">
-      <header className="topbar"><div className="breadcrumb"><span className="mobile-brand">erem<span /></span><span className="desktop-crumb">Meu espaço</span><ChevronRight size={14} /><strong>{navigation.find(item=>item.id===view)?.label ?? "Estudar"}</strong></div><div className="topbar-actions"><button className="icon-button" aria-label="Abrir cronômetro" onClick={()=>openResource("timer")}><Timer size={20}/></button><button className="top-avatar" aria-label="Abrir meu perfil" onClick={openProfile}>{state.name.slice(0, 1).toUpperCase()}</button></div></header>
+      <header className="topbar"><div className="breadcrumb"><span className="mobile-brand">erem<span /></span><span className="desktop-crumb">Meu espaço</span><ChevronRight size={14} /><strong>{navigation.find(item=>item.id===view)?.label ?? "Estudar"}</strong></div><div className="topbar-actions"><button className="icon-button top-friends-button" aria-label="Abrir amigos" title="Amigos" onClick={()=>setFriendsOpen(true)}><Users size={20}/><span>Amigos</span></button><button className="icon-button" aria-label="Abrir cronômetro" onClick={()=>openResource("timer")}><Timer size={20}/></button><button className="top-avatar" aria-label="Abrir meu perfil" onClick={openProfile}>{state.name.slice(0, 1).toUpperCase()}</button></div></header>
+      <Dialog open={friendsOpen} onOpenChange={setFriendsOpen}><DialogContent className="friends-dialog"><DialogHeader><DialogTitle>Amigos</DialogTitle><DialogDescription>Adicione jogadores e gerencie sua lista de amigos.</DialogDescription></DialogHeader><FriendsPanel startOpen/></DialogContent></Dialog>
       <main className={`workspace workspace-${view}`} id="main-content">
         {error ? <div className="error-panel" role="alert"><CircleHelp /><h1>Vamos tentar de novo?</h1><p>{error}</p><Button onClick={() => void load()}>Tentar novamente</Button></div> : loading ? <div className="loading-panel" aria-label="Carregando seus estudos"><Skeleton className="h-10 w-72" /><Skeleton className="h-5 w-56" /><div className="subject-grid">{Array.from({ length: 6 }, (_, i) => <Skeleton className="h-32 rounded-2xl" key={i} />)}</div></div> : <>
         {!loading && (toolsLoaded||view==="quiz") && <Suspense fallback={<p role="status">Carregando ferramentas…</p>}><StudyTools catalogue={catalogue} state={state} practice={prepareTopic} review={()=>go("errors")} visible={!!resource} initialSection={resource?.section} onClose={()=>setResource(null)} contextTopic={resource?.topic} contextQuestion={resource?.question} showTimer={view==="quiz"}/></Suspense>}
