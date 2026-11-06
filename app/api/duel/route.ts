@@ -25,8 +25,10 @@ async function advanceRoom(room:RoomRow){
 }
 async function present(room:RoomRow,userId:string,catalogue:Catalogue){
  const ids=JSON.parse(room.questions) as string[],isHost=room.host_id===userId,index=room.current_index;
- const all=await db().prepare("SELECT user_id,choice,correct FROM duel_answers WHERE code=?").bind(room.code).all<AnswerRow>();
- const score=(id:string|null)=>id?all.results.filter(a=>a.user_id===id&&a.correct===1).length*10:0;
+ const all=await db().prepare("SELECT user_id,choice,correct,question_index FROM duel_answers WHERE code=?").bind(room.code).all<AnswerRow>();
+ const completed=await db().prepare("SELECT question_index FROM duel_answers WHERE code=? GROUP BY question_index HAVING COUNT(*)>=2").bind(room.code).all<{question_index:number}>();
+ const completedIndexes=new Set(completed.results.map(a=>a.question_index));
+ const score=(id:string|null)=>id?all.results.filter(a=>a.user_id===id&&a.correct===1&&completedIndexes.has(a.question_index)).length*10:0;
  const opponentId=isHost?room.guest_id:room.host_id;
  const answers=await db().prepare("SELECT user_id,choice,correct FROM duel_answers WHERE code=? AND question_index=?").bind(room.code,index).all<{user_id:string;choice:number;correct:number}>();
  const mine=answers.results.find(a=>a.user_id===userId),bothAnswered=answers.results.length>=2,q=room.status==="active"&&(room.phase==="question"||room.phase==="break")?catalogue.questions.find(x=>x.id===ids[index]):undefined;
@@ -71,7 +73,16 @@ export async function POST(request:Request){
  }
  const code=typeof body.code==="string"?body.code.toUpperCase():"";if(!/^[A-Z0-9]{6}$/.test(code))return json({error:"Código de duelo inválido."},400);
  let room=await roomFor(code);if(!room)return json({error:"Duelo não encontrado."},404);room=await advanceRoom(room);
- if(body.action==="join"){
+ if(body.action==="rematch"){
+   if(room.status!=="finished")return json({error:"A revanche só fica disponível quando o duelo terminar."},409);
+   if(room.host_id!==user.userId&&room.guest_id!==user.userId)return json({error:"Você não participa deste duelo."},403);
+   let newCode="";for(let i=0;i<8;i++){const bytes=crypto.getRandomValues(new Uint8Array(6));newCode=Array.from(bytes,x=>"ABCDEFGHJKLMNPQRSTUVWXYZ23456789"[x%32]).join("");if(!await roomFor(newCode))break;newCode="";}
+   if(!newCode)return json({error:"Não foi possível criar a revanche. Tente novamente."},503);
+   const playerName=room.host_id===user.userId?room.host_name:(room.guest_name??"Estudante");
+   await database.prepare("INSERT INTO duel_rooms(code,host_id,host_name,status,questions,current_index,seconds_per_question,question_started_at,theme_id,phase,created_at,updated_at) VALUES(?,?,?,'waiting',?,0,?,NULL,?,'question',?,?)").bind(newCode,user.userId,playerName,room.questions,room.seconds_per_question,room.theme_id,now,now).run();
+   const next=await roomFor(newCode);return json(await present(next!,user.userId,await loadCatalogue(database)),201);
+  }
+  if(body.action==="join"){
   if(room.host_id===user.userId)return json({error:"Você não pode entrar no próprio duelo com a mesma conta."},409);
   if(room.guest_id&&room.guest_id!==user.userId)return json({error:"Este duelo já tem dois participantes."},409);
   if(room.status!=="waiting"&&room.guest_id!==user.userId)return json({error:"Este duelo já começou."},409);
