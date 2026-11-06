@@ -28,14 +28,14 @@ async function present(room:RoomRow,userId:string,catalogue:Catalogue){
  const all=await db().prepare("SELECT user_id,choice,correct FROM duel_answers WHERE code=?").bind(room.code).all<AnswerRow>();
  const score=(id:string|null)=>id?all.results.filter(a=>a.user_id===id&&a.correct===1).length*10:0;
  const opponentId=isHost?room.guest_id:room.host_id;
- const answers=await db().prepare("SELECT user_id,choice FROM duel_answers WHERE code=? AND question_index=?").bind(room.code,index).all<{user_id:string;choice:number}>();
+ const answers=await db().prepare("SELECT user_id,choice,correct FROM duel_answers WHERE code=? AND question_index=?").bind(room.code,index).all<{user_id:string;choice:number;correct:number}>();
  const mine=answers.results.find(a=>a.user_id===userId),q=room.status==="active"&&room.phase==="question"?catalogue.questions.find(x=>x.id===ids[index]):undefined;
  const started=room.question_started_at?Date.parse(room.question_started_at):Date.now();
  const phaseDuration=room.phase==="countdown"?10000:room.phase==="break"?3500:room.seconds_per_question*1000;
  const phaseRemainingMs=room.status==="active"?Math.max(0,phaseDuration-(Date.now()-started)):0;
  const remainingSeconds=room.phase==="question"?Math.max(0,Math.ceil(phaseRemainingMs/1000)):0;
  let themeIds:string[]=[];try{const parsed=JSON.parse(room.theme_id??"[]");themeIds=Array.isArray(parsed)?parsed.filter((v):v is string=>typeof v==="string"):room.theme_id?[room.theme_id]:[];}catch{themeIds=room.theme_id?[room.theme_id]:[];}
- return {code:room.code,status:room.status,phase:room.phase,currentIndex:index,total:ids.length,question:q?{prompt:q.prompt,options:q.options}:null,myAnswer:room.phase==="question"?mine?.choice??null:null,opponentAnswered:!!opponentId&&answers.results.some(a=>a.user_id===opponentId),scores:{host:score(room.host_id),guest:score(room.guest_id)},isHost,opponentJoined:!!room.guest_id,hostName:room.host_name,guestName:room.guest_name,secondsPerQuestion:room.seconds_per_question,remainingSeconds,phaseRemainingMs,themeIds};
+ return {code:room.code,status:room.status,phase:room.phase,currentIndex:index,total:ids.length,question:q?{prompt:q.prompt,options:q.options,correctOption:mine?q.answer:null}:null,myAnswer:room.phase==="question"?mine?.choice??null:null,opponentAnswered:!!opponentId&&answers.results.some(a=>a.user_id===opponentId),scores:{host:score(room.host_id),guest:score(room.guest_id)},isHost,opponentJoined:!!room.guest_id,hostName:room.host_name,guestName:room.guest_name,secondsPerQuestion:room.seconds_per_question,remainingSeconds,phaseRemainingMs,themeIds};
 }
 export async function GET(request:Request){
  const user=await getChatGPTUser();if(!user)return json({error:"Entre na sua conta para jogar."},401);
