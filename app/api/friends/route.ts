@@ -93,6 +93,11 @@ export async function POST(request:Request){
    await database.prepare("DELETE FROM friend_blocks WHERE blocker_id=? AND blocked_id=(SELECT user_id FROM player_ids WHERE public_id=?)").bind(user.userId,target).run();
    return json({message:"Pessoa desbloqueada."});
   }
+  if(action==="cancel"){
+   const target=typeof body.publicId==="string"?body.publicId:"";
+   await database.prepare("DELETE FROM friend_requests WHERE requester_id=? AND recipient_id=(SELECT user_id FROM player_ids WHERE public_id=?) AND status='pending'").bind(user.userId,target).run();
+   return json({message:"Solicitação cancelada."});
+  }
   if(action==="remove"){
    const target=typeof body.publicId==="string"?body.publicId:"",person=await database.prepare("SELECT user_id FROM player_ids WHERE public_id=?").bind(target).first<{user_id:string}>();
    if(!person)return json({error:"Jogador não encontrado."},404);
