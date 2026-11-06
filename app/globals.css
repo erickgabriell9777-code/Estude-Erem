@@ -538,3 +538,32 @@ html:not([data-mode=light]) .study-hub .hub-filters [aria-pressed=true]{color:va
 .quiz-layout .answer-letter{border-radius:9px;background:var(--muted);font-weight:750}
 .quiz-layout .question-hints{border-radius:15px}
 @media(max-width:600px){.session-dialog .steps{padding:7px;gap:3px}.session-dialog .step{font-size:.72rem}.session-dialog .step-arrow{display:none}.session-dialog .step-surface{padding:16px}.quiz-layout .question-card{border-radius:18px}.quiz-layout .answer-option{padding:14px 11px}}
+
+/* Friends and player directory */
+.friends-panel{margin-bottom:22px!important}
+.friends-panel-head{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.friends-panel-head h2{font-size:20px}
+.friends-panel-head .duel-muted{margin-top:5px}
+.friends-id-strip{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--muted);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-top:18px}
+.friends-id-strip span{font-size:13px;color:var(--muted-foreground)}
+.friends-id-strip strong{font-size:20px;letter-spacing:2px;font-variant-numeric:tabular-nums}
+.friends-id-strip button{margin-left:auto;border:0;background:transparent;color:var(--primary);font-size:13px;font-weight:650}
+.friends-tabs{display:flex;gap:5px;overflow-x:auto;padding:14px 0 10px;margin-top:8px;border-bottom:1px solid var(--border)}
+.friends-tabs button{display:flex;align-items:center;gap:6px;white-space:nowrap;border:0;background:transparent;color:var(--muted-foreground);padding:8px 11px;border-radius:9px;font-size:13px;font-weight:600}
+.friends-tabs button.is-active{background:var(--accent);color:var(--primary)}
+.friends-tabs button span{font-size:11px;background:var(--card);border-radius:20px;padding:1px 6px}
+.friends-search{display:flex;align-items:center;gap:10px;border:1px solid var(--input);border-radius:10px;padding:0 13px;margin:15px 0;color:var(--muted-foreground)}
+.friends-search input{height:45px;min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--foreground);font-size:14px}
+.friend-person{display:flex;align-items:center;gap:11px;padding:12px 2px;border-bottom:1px solid var(--border);min-width:0}
+.friend-avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--accent);color:var(--primary);font-weight:700}
+.friend-person-info{display:flex;flex-direction:column;min-width:0;flex:1}
+.friend-person-info strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.friend-person-info small{font-size:12px;color:var(--muted-foreground);font-variant-numeric:tabular-nums}
+.friend-person-actions{display:flex;align-items:center;gap:4px}
+.friend-person-actions button{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--border);border-radius:9px;background:var(--card);color:var(--muted-foreground)}
+.friend-person-actions button:hover{color:var(--primary);border-color:var(--primary)}
+.friends-empty{padding:22px 8px;text-align:center;color:var(--muted-foreground);font-size:13px}
+.friends-feedback{margin-top:12px;color:#16834a;font-size:13px}
+.friends-loading{display:flex;align-items:center;gap:7px;padding:8px 0;color:var(--muted-foreground);font-size:12px}
+.friends-refresh{display:flex;align-items:center;gap:7px;margin:12px auto 0;border:0;background:transparent;color:var(--muted-foreground);font-size:12px}
+@media(max-width:640px){.friends-panel-head{align-items:flex-start}.friends-panel-head>button{flex-shrink:0}.friends-panel-head h2{font-size:18px}.friends-tabs{margin-right:-4px}.friends-tabs button{padding:8px 9px;font-size:12px}.friends-id-strip{gap:8px}.friends-id-strip strong{font-size:18px}}
