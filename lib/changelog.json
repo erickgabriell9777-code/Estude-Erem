@@ -1,5 +1,14 @@
 [
   {
+    "version": "1.5.0",
+    "date": "2026-11-05",
+    "categories": {
+      "Novidades": [
+        "Nova área de Amigos no Duelo, com IDs públicos permanentes, pesquisa de jogadores, solicitações de amizade e gerenciamento de bloqueios."
+      ]
+    }
+  },
+  {
     "version": "1.4.2",
     "date": "2026-11-03",
     "categories": {
