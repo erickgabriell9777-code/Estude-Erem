@@ -59,7 +59,7 @@ export async function POST(request:Request){
   }
   if(action==="request"){
    const target=typeof body.publicId==="string"?body.publicId.trim():"";
-   if(!/^\\d{6}$/.test(target))return json({error:"Informe um ID de seis dígitos."},400);
+   if(!/^\d{6}$/.test(target))return json({error:"Informe um ID de seis dígitos."},400);
    const person=await database.prepare("SELECT user_id FROM player_ids WHERE public_id=?").bind(target).first<{user_id:string}>();
    if(!person)return json({error:"Nenhum jogador encontrado com esse ID."},404);
    if(person.user_id===user.userId)return json({error:"Você não pode enviar solicitação para si mesmo."},409);
