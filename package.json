@@ -1,7 +1,7 @@
 {
   "name": "estude-erem",
-  "version": "1.4.2",
-  "appBuild": 18,
+  "version": "1.5.0",
+  "appBuild": 19,
   "private": true,
   "engines": {
     "node": ">=22.13.0"
