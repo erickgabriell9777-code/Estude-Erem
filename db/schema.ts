@@ -89,3 +89,23 @@ export const duelAnswers = sqliteTable("duel_answers", {
  correct: integer("correct").notNull(),
  createdAt: text("created_at").notNull(),
 }, t => [primaryKey({columns:[t.code,t.questionIndex,t.userId]})]);
+
+
+export const playerIds = sqliteTable("player_ids", {
+ userId: text("user_id").primaryKey(),
+ publicId: text("public_id").notNull().unique(),
+ createdAt: text("created_at").notNull(),
+});
+export const friendRequests = sqliteTable("friend_requests", {
+ id: text("id").primaryKey(),
+ requesterId: text("requester_id").notNull(),
+ recipientId: text("recipient_id").notNull(),
+ status: text("status").notNull().default("pending"),
+ createdAt: text("created_at").notNull(),
+ updatedAt: text("updated_at").notNull(),
+});
+export const friendBlocks = sqliteTable("friend_blocks", {
+ blockerId: text("blocker_id").notNull(),
+ blockedId: text("blocked_id").notNull(),
+ createdAt: text("created_at").notNull(),
+}, t => [primaryKey({columns:[t.blockerId,t.blockedId]})]);
