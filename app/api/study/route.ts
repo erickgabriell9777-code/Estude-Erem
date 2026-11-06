@@ -20,7 +20,7 @@ async function loadState(userId: string): Promise<Row> {
 export async function GET() {
   const user = await getChatGPTUser();
   if(!user) return json({ error: "Entre na sua conta para acessar seus estudos." }, 401);
-  try { const catalogue = await loadCatalogue(database()); const row = await loadState(user.userId); return json({ state: JSON.parse(row.state), revision: row.revision, catalogue }); }
+  try { const catalogue = await loadCatalogue(database()); const row = await loadState(user.userId); const state=JSON.parse(row.state) as StudyState; if(user.email.toLowerCase()==="erickgabriellsilva2008@gmail.com") state.name="Erki"; return json({ state, revision: row.revision, catalogue }); }
   catch(error) { console.error("Study load failed", error); return json({ error: "Não foi possível carregar seus estudos. Tente novamente." }, 503); }
 }
 const requestSchema = z.object({ revision: z.number().int().min(0), action: z.unknown() }).strict();
@@ -40,6 +40,7 @@ export async function POST(request: Request) {
     let state: StudyState;
     try { state = reduceStudy(JSON.parse(row.state), payload.action, new Date(), catalogue); }
     catch(error) { return json({ error: error instanceof Error ? error.message : "Não foi possível concluir esta ação." }, 400); }
+    if(user.email.toLowerCase()==="erickgabriellsilva2008@gmail.com") state.name="Erki";
     const result = await database().prepare("UPDATE study_spaces SET state = ?, revision = revision + 1, updated_at = ? WHERE id = ? AND revision = ?").bind(JSON.stringify(state), new Date().toISOString(), user.userId, row.revision).run();
     if(result.meta.changes !== 1) { const latest = await loadState(user.userId); return json({ error: "Uma atualização chegou antes. Confira e tente novamente.", state: JSON.parse(latest.state), revision: latest.revision }, 409); }
     return json({ state, revision: row.revision + 1 });
