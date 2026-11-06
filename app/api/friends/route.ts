@@ -3,19 +3,21 @@ import {getChatGPTUser} from "../../chatgpt-auth";
 export const dynamic="force-dynamic";
 function db(){if(!env.DB)throw new Error("Database unavailable");return env.DB;}
 function json(body:unknown,status=200){return Response.json(body,{status,headers:{"Cache-Control":"private, no-store","Vary":"Cookie"}});}
-async function nameFor(userId:string){try{const row=await db().prepare("SELECT state FROM study_spaces WHERE id=?").bind(userId).first<{state:string}>();if(row){const state=JSON.parse(row.state) as {name?:unknown};if(typeof state.name==="string"&&state.name.trim())return state.name.trim().slice(0,40);}}catch{}return "Estudante";}
+async function nameFor(userId:string){const identity=await db().prepare("SELECT public_id FROM player_ids WHERE user_id=?").bind(userId).first<{public_id:string}>();if(identity?.public_id==="000001")return "Erki";try{const row=await db().prepare("SELECT state FROM study_spaces WHERE id=?").bind(userId).first<{state:string}>();if(row){const state=JSON.parse(row.state) as {name?:unknown};if(typeof state.name==="string"&&state.name.trim())return state.name.trim().slice(0,40);}}catch{}return "Estudante";}
 async function ensurePlayerId(user:{userId:string;email:string}) {
  const database=db();
+ // The reserved ID is granted only to the verified owner email; it takes precedence over any prior generated ID.
+ const reserved=user.email.toLowerCase()==="erickgabriellsilva2008@gmail.com"?"000001":null;
  const existing=await database.prepare("SELECT public_id FROM player_ids WHERE user_id=?").bind(user.userId).first<{public_id:string}>();
- if(existing)return existing.public_id;
- // The reserved ID is granted only to the verified, currently allowlisted owner account.
- const reserved=user.email.toLowerCase()==="erickgabriell9777@gmail.com"?"000001":null;
  if(reserved){
+  if(existing?.public_id==="000001")return existing.public_id;
+  if(existing){const changed=await database.prepare("UPDATE player_ids SET public_id=? WHERE user_id=? AND public_id=?").bind(reserved,user.userId,existing.public_id).run();if(changed.meta.changes===1)return reserved;}
   await database.prepare("INSERT OR IGNORE INTO player_ids(user_id,public_id,created_at) VALUES(?,?,?)").bind(user.userId,reserved,new Date().toISOString()).run();
   const row=await database.prepare("SELECT public_id FROM player_ids WHERE user_id=?").bind(user.userId).first<{public_id:string}>();
-  if(row)return row.public_id;
+  if(row?.public_id===reserved)return row.public_id;
   throw new Error("O ID reservado já está associado a outra conta.");
  }
+ if(existing)return existing.public_id;
  for(let attempt=0;attempt<30;attempt++){
   const bytes=crypto.getRandomValues(new Uint8Array(4));
   const value=String(((bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|bytes[3])>>>0).padStart(10,"0");
