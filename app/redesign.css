@@ -716,3 +716,12 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
   animation:answer-feedback-pop .38s cubic-bezier(.2,.8,.2,1) both;
 }
 .duel-option.is-incorrect .duel-option-letter{background:#dc2626!important;color:#fff!important}
+
+.topbar-actions .top-friends-button{width:auto;min-width:40px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:700}
+.friends-dialog{width:min(660px,calc(100vw - 28px))!important;max-width:660px!important;max-height:88dvh;overflow-y:auto}
+.friends-dialog .friends-panel{margin:0!important}
+.profile-player-id{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:9px;padding:7px 10px;border:1px solid var(--border);border-radius:10px;background:var(--muted);width:max-content;max-width:100%}
+.profile-player-id span{font-size:.72rem;color:var(--muted-foreground)}
+.profile-player-id strong{font-size:.9rem;letter-spacing:1.5px;font-variant-numeric:tabular-nums}
+.profile-player-id button{border:0;background:transparent;color:var(--primary);font-size:.75rem;font-weight:750}
+@media(max-width:600px){.topbar-actions .top-friends-button{width:40px;padding:0}.topbar-actions .top-friends-button span{display:none}.friends-dialog{padding:18px!important}.friends-dialog .friends-panel-head{align-items:flex-start;flex-direction:column}.profile-hero-main{flex-wrap:wrap}.profile-level-pill{margin-left:84px}}
