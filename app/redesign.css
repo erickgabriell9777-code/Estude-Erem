@@ -905,3 +905,27 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
 @media (prefers-reduced-motion: reduce) {
   .auth-screen *, .auth-screen *::before, .auth-screen *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* A verificação Cloudflare fica fora do cartão de login, logo abaixo dele. */
+.auth-screen > .auth-human {
+  grid-column: 2;
+  grid-row: 2;
+  justify-self: center;
+  align-self: start;
+  width: min(100%, 460px);
+  margin: -4px 0 0;
+  padding: 0 12px;
+  position: relative;
+  z-index: 2;
+}
+.auth-screen > .auth-human > div { max-width: 100%; }
+@media (max-width: 780px) {
+  .auth-screen > .auth-human {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    margin: -8px 0 0;
+    padding: 0;
+  }
+}
