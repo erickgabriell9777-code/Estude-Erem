@@ -929,3 +929,17 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
     padding: 0;
   }
 }
+
+
+/* Cápsula de navegação móvel: desliza entre as quatro abas sem mover o DUELO. */
+.mobile-nav{position:fixed;isolation:isolate;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.mobile-nav::before{content:"";position:absolute;z-index:0;top:6px;bottom:calc(6px + env(safe-area-inset-bottom));left:max(6px,env(safe-area-inset-left));width:calc((100% - max(6px,env(safe-area-inset-left)) - max(6px,env(safe-area-inset-right)))/5);border-radius:12px;background:var(--accent);pointer-events:none;will-change:transform;transition:transform .42s cubic-bezier(.22,1,.36,1)}
+.mobile-nav[data-active-tab="home"]::before{transform:translateX(0)}
+.mobile-nav[data-active-tab="errors"]::before{transform:translateX(100%)}
+.mobile-nav[data-active-tab="books"]::before{transform:translateX(300%)}
+.mobile-nav[data-active-tab="menu"]::before{transform:translateX(400%)}
+.mobile-nav.is-dragging::before{transition:none;transform:translateX(var(--mobile-nav-drag-x,0px))}
+.mobile-nav>button{position:relative;z-index:1;background:transparent!important;transition:color .18s ease}
+.mobile-nav>button[aria-current="page"]:not(.duel-nav-button){color:var(--primary)}
+.mobile-nav .duel-nav-button{z-index:2;touch-action:pan-y}
+@media(prefers-reduced-motion:reduce){.mobile-nav::before{transition:none}}
