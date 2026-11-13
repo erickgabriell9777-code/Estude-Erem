@@ -938,7 +938,7 @@ body:has(.picker-dialog) [data-slot=dialog-overlay]{z-index:75}
 .mobile-nav[data-active-tab="errors"]::before{transform:translateX(100%)}
 .mobile-nav[data-active-tab="books"]::before{transform:translateX(300%)}
 .mobile-nav[data-active-tab="menu"]::before{transform:translateX(400%)}
-.mobile-nav.is-dragging::before{transition:none}
+.mobile-nav.is-dragging::before{transition:none;transform:translateX(var(--mobile-nav-drag-x,0px))}
 .mobile-nav>button{position:relative;z-index:1;background:transparent!important;transition:color .18s ease}
 .mobile-nav>button[aria-current="page"]:not(.duel-nav-button){color:var(--primary)}
 .mobile-nav .duel-nav-button{z-index:2;touch-action:pan-y}
